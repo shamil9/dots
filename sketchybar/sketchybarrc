@@ -1,0 +1,129 @@
+sketchybar --bar y_offset=0 \
+    color=0xff000000 \
+    display=main \
+    padding_left=0 \
+    padding_right=0 \
+    height=32
+    sticky=true
+
+############## SPACE DEFAULTS ############## 
+sketchybar -m --default \
+    label.padding_left=5 \
+    label.padding_right=2 \
+    icon.padding_left=8 \
+    label.padding_right=8
+
+############## GLOBAL DEFAULTS ############## 
+sketchybar -m --default \
+		updates=when_shown \
+		drawing=on \
+		cache_scripts=on \
+		icon.font="Hack Nerd Font:Bold:14.0" \
+		icon.color=0xffffffff \
+
+############## PRIMARY DISPLAY SPACES ############## 
+# SPACE 1: CODE ICON
+sketchybar -m --add space code left \
+		--set code icon= \
+		--set code label=code \
+		--set code associated_display=1 \
+		--set code associated_space=1 \
+		--set code icon.padding_left=10 \
+		--set code icon.padding_right=5 \
+		--set code label.padding_right=10 \
+		--set code label.padding_left=0 \
+		--set code background.color=0xff48868c  \
+		--set code background.height=32 \
+		--set code background.padding_left=0 \
+		--set code click_script="yabai -m space --focus 1" \
+		--set code script="~/.config/sketchybar/plugins/space.sh" \
+
+# SPACE 2: WEB ICON
+sketchybar -m --add space web left \
+		--set web icon= \
+		--set web label=web \
+		--set web icon.highlight_color=0xff000000 \
+		--set web associated_display=1 \
+		--set web associated_space=2 \
+		--set web icon.padding_left=10 \
+		--set web icon.padding_right=5 \
+		--set web label.padding_right=10 \
+		--set web label.padding_left=0 \
+		--set web label.color=0xffeceff4 \
+		--set web background.color=0xffdcdcce  \
+		--set web background.height=32 \
+		--set web background.padding_left=0 \
+		--set web click_script="yabai -m space --focus 2" \
+		--set web script="~/.config/sketchybar/plugins/space.sh" \
+
+# SPACE 3: MESSAGES ICON
+sketchybar -m --add space home left \
+		--set home icon=  \
+		--set home label=messages \
+		--set home icon.highlight_color=0xff000000 \
+		--set home associated_display=1 \
+		--set home associated_space=3 \
+		--set home icon.padding_left=10 \
+		--set home icon.padding_right=5 \
+		--set home label.padding_right=10 \
+		--set home label.padding_left=0 \
+		--set home label.color=0xffeceff4 \
+		--set home background.color=0xffcd2d2d  \
+		--set home background.height=32 \
+		--set home background.padding_left=0 \
+		--set home click_script="yabai -m space --focus 3" \
+		--set home script="~/.config/sketchybar/plugins/space.sh" \
+
+############## ITEM DEFAULTS ###############
+	sketchybar -m --default \
+		label.padding_left=2 \
+		icon.padding_right=2 \
+		icon.padding_left=6 \
+		label.padding_right=6
+
+############## RIGHT ITEMS ############## 
+# E V E N T S
+sketchybar -m --add event song_update com.apple.iTunes.playerInfo
+
+# DATE TIME
+sketchybar -m --add item date_time right \
+		--set date_time icon= \
+		--set date_time icon.padding_left=8 \
+		--set date_time icon.padding_right=0 \
+		--set date_time label.padding_right=9 \
+		--set date_time label.padding_left=6 \
+		--set date_time label.color=0xffeceff4 \
+		--set date_time update_freq=60 \
+		--set date_time background.color=0xff000000 \
+		--set date_time background.height=21 \
+		--set date_time background.padding_right=0 \
+		--set date_time script="~/.config/sketchybar/plugins/clock.sh" \
+
+# M U S I C
+sketchybar -m --add item music_info                      right  \
+			--set music_info label.padding_right=9 \
+			--set music_info label.padding_left=6 \
+			--set music_info label.color=0xffeceff4 \
+			--set music_info update_freq=60 \
+			--set music_info background.color=0xff000000 \
+			--set music_info background.height=21 \
+			--set music_info background.padding_right=12 \
+			--set music_info script="~/.config/sketchybar/plugins/music.sh" \
+			--subscribe music_info song_update
+
+# CPU USAGE
+sketchybar -m --add item cpu_percent right \
+		--set cpu_percent icon= \
+		--set cpu_percent icon.padding_left=8 \
+		--set cpu_percent icon.padding_right=0 \
+		--set cpu_percent label.padding_right=8 \
+		--set cpu_percent label.padding_left=6 \
+		--set cpu_percent label.color=0xffeceff4 \
+		--set cpu_percent background.color=0xff000000  \
+		--set cpu_percent background.height=21 \
+		--set cpu_percent background.padding_right=7 \
+		--set cpu_percent update_freq=2 \
+		--set cpu_percent script="~/.config/sketchybar/plugins/cpu.sh" \
+
+############## FINALIZING THE SETUP ##############
+sketchybar -m --update
