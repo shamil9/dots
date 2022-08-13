@@ -3,5 +3,6 @@
 /thefuck
 /coc
 /yarn*
+packer_compiled.lua
 .DS_Store
 aliases
