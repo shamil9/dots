@@ -34,9 +34,21 @@ astronvim.lsp.on_attach = function(client, bufnr)
         ["]d"] = { function() vim.diagnostic.goto_next() end, desc = "Next diagnostic" },
         ["gl"] = { function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" },
       },
+      v = {
+        ["<leader>la"] = { function() vim.lsp.buf.range_code_action() end, desc = "Range LSP code action" },
+        ["<leader>lf"] = {
+          function()
+            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, true, true), "n", false)
+            vim.lsp.buf.range_formatting()
+          end,
+          desc = "Range format code",
+        },
+      },
     }),
     { buffer = bufnr }
   )
+
+  astronvim.which_key_register({ v = { ["<leader>"] = { l = { name = "LSP" } } } }, { buffer = bufnr })
 
   vim.api.nvim_buf_create_user_command(
     bufnr,

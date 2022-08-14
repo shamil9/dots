@@ -1,17 +1,24 @@
 return {
-  -- Add plugins, the packer syntax without the "use"
-  init = require "user.plugins.init",
+  { "EdenEast/nightfox.nvim" },
+  -- You can disable default plugins as follows:
+  -- ["goolord/alpha-nvim"] = { disable = true },
 
-  -- All other entries override the setup() call for default plugins
-  packer = {
-    compile_path = vim.fn.stdpath "config" .. "/lua/packer_compiled.lua",
+  -- You can also add new plugins here as well:
+  -- Add plugins, the packer syntax without the "use"
+  -- { "andweeb/presence.nvim" },
+  {
+    "ray-x/lsp_signature.nvim",
+    event = "BufRead",
+    config = function()
+      require("lsp_signature").setup()
+    end,
   },
-  treesitter = require "user.plugins.treesitter",
-  bufferline = require "user.plugins.bufferline",
-  lualine = require "user.plugins.lualine",
-  -- feline = require "user.plugins.feline",
-  colorizer = require "user.plugins.colorizer",
-  notify = require "user.plugins.notify",
-  symbols_outline = require "user.plugins.symbols-outline",
-  telescope = require "user.plugins.telescope",
+
+  -- We also support a key value style plugin definition similar to NvChad:
+  -- ["ray-x/lsp_signature.nvim"] = {
+  --   event = "BufRead",
+  --   config = function()
+  --     require("lsp_signature").setup()
+  --   end,
+  -- },
 }
