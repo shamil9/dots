@@ -1,4 +1,4 @@
-  -- Extend LSP configuration
+-- Extend LSP configuration
 return {
   -- enable servers that you already have installed without mason
   servers = {
@@ -21,6 +21,12 @@ return {
 
   -- Add overrides for LSP server settings, the keys are the name of the server
   ["server-settings"] = {
+    volar = {
+      on_attach = function(client) client.resolved_capabilities.document_formatting = false end,
+    },
+    stylelint_lsp = {
+      on_attach = function(client) client.resolved_capabilities.document_formatting = false end,
+    },
     -- example for addings schemas to yamlls
     -- yamlls = { -- override table for require("lspconfig").yamlls.setup({...})
     --   settings = {
