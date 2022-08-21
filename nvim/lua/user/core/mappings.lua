@@ -15,6 +15,8 @@ return {
     ["<leader>bt"] = { "<cmd>BufferLineSortByTabs<cr>", desc = "Sort by tabs" },
     -- quick save
     -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
+    ["<C-h>"] = { "<<", desc = "Move line to the left", noremap = true },
+    ["<C-l>"] = { ">>", desc = "Move line to the right", noremap = true },
   },
   t = {
     -- setting a mapping to false will disable it

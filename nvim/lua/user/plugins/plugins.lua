@@ -1,5 +1,13 @@
 return {
   { "EdenEast/nightfox.nvim" },
+  --[[ { ]]
+  --[[   "booperlv/nvim-gomove", ]]
+  --[[   config = function() ]]
+  --[[     require("gomove").setup { ]]
+  --[[       map_defaults = false, ]]
+  --[[     } ]]
+  --[[   end, ]]
+  --[[ }, ]]
   -- You can disable default plugins as follows:
   -- ["goolord/alpha-nvim"] = { disable = true },
 
@@ -9,9 +17,7 @@ return {
   {
     "ray-x/lsp_signature.nvim",
     event = "BufRead",
-    config = function()
-      require("lsp_signature").setup()
-    end,
+    config = function() require("lsp_signature").setup() end,
   },
 
   -- We also support a key value style plugin definition similar to NvChad:
