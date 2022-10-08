@@ -1,5 +1,6 @@
 return {
   { "EdenEast/nightfox.nvim" },
+  { "tpope/vim-unimpaired" },
   --[[ { ]]
   --[[   "booperlv/nvim-gomove", ]]
   --[[   config = function() ]]

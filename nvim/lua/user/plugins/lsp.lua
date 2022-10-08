@@ -22,10 +22,10 @@ return {
   -- Add overrides for LSP server settings, the keys are the name of the server
   ["server-settings"] = {
     volar = {
-      on_attach = function(client) client.resolved_capabilities.document_formatting = false end,
+      on_attach = function(client) client.server_capabilities.document_formatting = false end,
     },
     stylelint_lsp = {
-      on_attach = function(client) client.resolved_capabilities.document_formatting = false end,
+      on_attach = function(client) client.server_capabilities.document_formatting = false end,
     },
     -- example for addings schemas to yamlls
     -- yamlls = { -- override table for require("lspconfig").yamlls.setup({...})
@@ -42,7 +42,7 @@ return {
     -- Example disabling formatting for a specific language server
     -- gopls = { -- override table for require("lspconfig").gopls.setup({...})
     --   on_attach = function(client, bufnr)
-    --     client.resolved_capabilities.document_formatting = false
+    --     client.server_capabilities.document_formatting = false
     --   end
     -- }
   },
