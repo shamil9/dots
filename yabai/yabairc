@@ -67,7 +67,7 @@ yabai -m rule --add title="(Co(py|nnect)|Move|Info|Pref)" manage=off border=off
 yabai -m rule --add app=Finder manage=off border=off
 yabai -m rule --add app="Looking Glass" manage=off border=off
 yabai -m rule --add app=Tweetbot manage=off border=off
-yabai -m rule --add title="terminal" opacity=1.0
+yabai -m rule --add app=iTerm2 opacity=1.0
 
 # ===== Signals ================================
 
