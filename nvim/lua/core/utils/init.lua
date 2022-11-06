@@ -42,7 +42,7 @@ local function load_module_file(module)
       found_module = loaded_module
       -- if unsuccessful, throw an error
     else
-      vim.api.nvim_err_writeln("Error loading file: " .. found_module)
+      vim.api.nvim_err_writeln("Error loading file: " .. found_module .. "\n\n" .. loaded_module)
     end
   end
   -- return the loaded module or nil if no file found
@@ -83,6 +83,10 @@ local function func_or_extend(overrides, default, extend)
   return default
 end
 
+--- Merge extended options with a default table of options
+-- @param opts the new options that should be merged with the default table
+-- @param default the default table that you want to merge into
+-- @return the merged table
 function astronvim.default_tbl(opts, default)
   opts = opts or {}
   return default and vim.tbl_deep_extend("force", default, opts) or opts
@@ -100,12 +104,16 @@ end
 -- @param name highlight group name
 -- @return table of highlight group properties
 function astronvim.get_hlgroup(name, fallback)
-  local hl = vim.fn.hlexists(name) == 1 and vim.api.nvim_get_hl_by_name(name, vim.o.termguicolors) or {}
-  return astronvim.default_tbl(
-    vim.o.termguicolors and { fg = hl.foreground, bg = hl.background, sp = hl.special }
-      or { cterfm = hl.foreground, ctermbg = hl.background },
-    fallback
-  )
+  if vim.fn.hlexists(name) == 1 then
+    local hl = vim.api.nvim_get_hl_by_name(name, vim.o.termguicolors)
+    if not hl["foreground"] then hl["foreground"] = "NONE" end
+    if not hl["background"] then hl["background"] = "NONE" end
+    hl.fg, hl.bg, hl.sp = hl.foreground, hl.background, hl.special
+    hl.ctermfg, hl.ctermbg = hl.foreground, hl.background
+    return hl
+  else
+    return fallback
+  end
 end
 
 --- Trim a string or return nil
@@ -124,47 +132,17 @@ end
 
 --- Initialize icons used throughout the user interface
 function astronvim.initialize_icons()
-  astronvim.icons = astronvim.user_plugin_opts("icons", {
-    ActiveLSP = "",
-    ActiveTS = "綠",
-    BufferClose = "",
-    NeovimClose = "",
-    DefaultFile = "",
-    Diagnostic = "裂",
-    DiagnosticError = "",
-    DiagnosticHint = "",
-    DiagnosticInfo = "",
-    DiagnosticWarn = "",
-    Ellipsis = "…",
-    FileModified = "",
-    FileReadOnly = "",
-    FolderClosed = "",
-    FolderEmpty = "",
-    FolderOpen = "",
-    Git = "",
-    GitAdd = "",
-    GitBranch = "",
-    GitChange = "",
-    GitConflict = "",
-    GitDelete = "",
-    GitIgnored = "◌",
-    GitRenamed = "➜",
-    GitStaged = "✓",
-    GitUnstaged = "✗",
-    GitUntracked = "★",
-    LSPLoaded = "",
-    LSPLoading1 = "",
-    LSPLoading2 = "",
-    LSPLoading3 = "",
-  })
+  astronvim.icons = astronvim.user_plugin_opts("icons", require "core.icons.nerd_font")
+  astronvim.text_icons = astronvim.user_plugin_opts("text_icons", require "core.icons.text")
 end
 
 --- Get an icon from `lspkind` if it is available and return it
 -- @param kind the kind of icon in `lspkind` to retrieve
 -- @return the icon
 function astronvim.get_icon(kind)
-  if not astronvim.icons then astronvim.initialize_icons() end
-  return astronvim.icons and astronvim.icons[kind] or ""
+  local icon_pack = vim.g.icons_enabled and "icons" or "text_icons"
+  if not astronvim[icon_pack] then astronvim.initialize_icons() end
+  return astronvim[icon_pack] and astronvim[icon_pack][kind] or ""
 end
 
 --- Serve a notification with a title of AstroNvim
@@ -281,17 +259,19 @@ function astronvim.user_plugin_opts(module, default, extend, prefix)
   return default
 end
 
---- Open a URL under the cursor with the current operating system
-function astronvim.url_opener()
-  -- if mac use the open command
+--- Open a URL under the cursor with the current operating system (Supports Mac OS X and *nix)
+-- @param path the path of the file to open with the system opener
+function astronvim.system_open(path)
+  path = path or vim.fn.expand "<cfile>"
   if vim.fn.has "mac" == 1 then
-    vim.fn.jobstart({ "open", vim.fn.expand "<cfile>" }, { detach = true })
-    -- if unix then use xdg-open
+    -- if mac use the open command
+    vim.fn.jobstart({ "open", path }, { detach = true })
   elseif vim.fn.has "unix" == 1 then
-    vim.fn.jobstart({ "xdg-open", vim.fn.expand "<cfile>" }, { detach = true })
-    -- if any other operating system notify the user that there is currently no support
+    -- if unix then use xdg-open
+    vim.fn.jobstart({ "xdg-open", path }, { detach = true })
   else
-    astronvim.notify("gx is not supported on this OS!", "error")
+    -- if any other operating system notify the user that there is currently no support
+    astronvim.notify("System open is not supported on this OS!", "error")
   end
 end
 
@@ -400,20 +380,6 @@ function astronvim.null_ls_providers(filetype)
   return registered
 end
 
---- Register a null-ls source given a name if it has not been manually configured in the null-ls configuration
--- @param source the source name to register from all builtin types
-function astronvim.null_ls_register(source)
-  -- try to load null-ls
-  local null_ls_avail, null_ls = pcall(require, "null-ls")
-  if null_ls_avail then
-    if null_ls.is_registered(source) then return end
-    for _, type in ipairs { "diagnostics", "formatting", "code_actions", "completion", "hover" } do
-      local builtin = require("null-ls.builtins._meta." .. type)
-      if builtin[source] then null_ls.register(null_ls.builtins[type][source]) end
-    end
-  end
-end
-
 --- Get the null-ls sources for a given null-ls method
 -- @param filetype the filetype to search null-ls for
 -- @param method the null-ls method (check null-ls documentation for available methods)
@@ -500,6 +466,7 @@ end
 -- @param show_error boolean of whether or not to show an unsuccessful command as an error to the user
 -- @return the result of a successfully executed command or nil
 function astronvim.cmd(cmd, show_error)
+  if vim.fn.has "win32" == 1 then cmd = { "cmd.exe", "/C", cmd } end
   local result = vim.fn.system(cmd)
   local success = vim.api.nvim_get_vvar "shell_error" == 0
   if not success and (show_error == nil and true or show_error) then

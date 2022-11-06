@@ -10,7 +10,7 @@ maps.n["<leader>w"] = { "<cmd>w<cr>", desc = "Save" }
 maps.n["<leader>q"] = { "<cmd>q<cr>", desc = "Quit" }
 maps.n["<leader>h"] = { "<cmd>nohlsearch<cr>", desc = "No Highlight" }
 maps.n["<leader>fn"] = { "<cmd>enew<cr>", desc = "New File" }
-maps.n["gx"] = { function() astronvim.url_opener() end, desc = "Open the file under cursor with system app" }
+maps.n["gx"] = { function() astronvim.system_open() end, desc = "Open the file under cursor with system app" }
 maps.n["<C-s>"] = { "<cmd>w!<cr>", desc = "Force write" }
 maps.n["<C-q>"] = { "<cmd>q!<cr>", desc = "Force quit" }
 maps.n["Q"] = "<Nop>"
@@ -25,15 +25,20 @@ maps.n["<leader>pu"] = { "<cmd>PackerUpdate<cr>", desc = "Packer Update" }
 -- AstroNvim
 maps.n["<leader>pA"] = { "<cmd>AstroUpdate<cr>", desc = "AstroNvim Update" }
 maps.n["<leader>pv"] = { "<cmd>AstroVersion<cr>", desc = "AstroNvim Version" }
+maps.n["<leader>pl"] = { "<cmd>AstroChangelog<cr>", desc = "AstroNvim Changelog" }
 
 -- Alpha
-if is_available "alpha-nvim" then maps.n["<leader>d"] = { "<cmd>Alpha<cr>", desc = "Alpha Dashboard" } end
+if is_available "alpha-nvim" then
+  maps.n["<leader>d"] = { function() require("alpha").start() end, desc = "Alpha Dashboard" }
+end
 
 -- Bufdelete
 if is_available "bufdelete.nvim" then
-  maps.n["<leader>c"] = { "<cmd>Bdelete<cr>", desc = "Close window" }
+  maps.n["<leader>c"] = { function() require("bufdelete").bufdelete(0, false) end, desc = "Close buffer" }
+  maps.n["<leader>C"] = { function() require("bufdelete").bufdelete(0, true) end, desc = "Force close buffer" }
 else
-  maps.n["<leader>c"] = { "<cmd>bdelete<cr>", desc = "Close window" }
+  maps.n["<leader>c"] = { "<cmd>bdelete<cr>", desc = "Close buffer" }
+  maps.n["<leader>C"] = { "<cmd>bdelete!<cr>", desc = "Force close buffer" }
 end
 
 -- Navigate buffers
@@ -120,7 +125,9 @@ else
 end
 
 -- SymbolsOutline
-if is_available "aerial.nvim" then maps.n["<leader>lS"] = { "<cmd>AerialToggle<cr>", desc = "Symbols outline" } end
+if is_available "aerial.nvim" then
+  maps.n["<leader>lS"] = { function() require("aerial").toggle() end, desc = "Symbols outline" }
+end
 
 -- Telescope
 if is_available "telescope.nvim" then
@@ -184,9 +191,10 @@ if is_available "toggleterm.nvim" then
   maps.n["<leader>tf"] = { "<cmd>ToggleTerm direction=float<cr>", desc = "ToggleTerm float" }
   maps.n["<leader>th"] = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", desc = "ToggleTerm horizontal split" }
   maps.n["<leader>tv"] = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", desc = "ToggleTerm vertical split" }
-  maps.n["<C-'>"] = { "<cmd>ToggleTerm<cr>", desc = "Toggle terminal" }
-  maps.i["<C-'>"] = maps.n["<C-'>"]
-  maps.t["<C-'>"] = maps.n["<C-'>"]
+  maps.n["<F7>"] = { "<cmd>ToggleTerm<cr>", desc = "Toggle terminal" }
+  maps.t["<F7>"] = maps.n["<F7>"]
+  maps.n["<C-'>"] = maps.n["<F7>"]
+  maps.t["<C-'>"] = maps.n["<F7>"]
 end
 
 -- Stay in indent mode
@@ -197,7 +205,7 @@ maps.v[">"] = { ">gv", desc = "indent line" }
 maps.t["<C-h>"] = { "<c-\\><c-n><c-w>h", desc = "Terminal left window navigation" }
 maps.t["<C-j>"] = { "<c-\\><c-n><c-w>j", desc = "Terminal down window navigation" }
 maps.t["<C-k>"] = { "<c-\\><c-n><c-w>k", desc = "Terminal up window navigation" }
-maps.t["<C-l>"] = { "<c-\\><c-n><c-w>l", desc = "Terminal right window naviation" }
+maps.t["<C-l>"] = { "<c-\\><c-n><c-w>l", desc = "Terminal right window navigation" }
 
 -- Custom menu for modification of the user experience
 if is_available "nvim-autopairs" then
@@ -213,10 +221,14 @@ end
 maps.n["<leader>ud"] = { function() astronvim.ui.toggle_diagnostics() end, desc = "Toggle diagnostics" }
 maps.n["<leader>ug"] = { function() astronvim.ui.toggle_signcolumn() end, desc = "Toggle signcolumn" }
 maps.n["<leader>ui"] = { function() astronvim.ui.set_indent() end, desc = "Change indent setting" }
+maps.n["<leader>ul"] = { function() astronvim.ui.toggle_statusline() end, desc = "Toggle statusline" }
 maps.n["<leader>un"] = { function() astronvim.ui.change_number() end, desc = "Change line numbering" }
-maps.n["<leader>up"] = { function() astronvim.ui.toggle_spell() end, desc = "Toggle spellcheck" }
+maps.n["<leader>us"] = { function() astronvim.ui.toggle_spell() end, desc = "Toggle spellcheck" }
+maps.n["<leader>up"] = { function() astronvim.ui.toggle_paste() end, desc = "Toggle paste mode" }
+maps.n["<leader>ut"] = { function() astronvim.ui.toggle_tabline() end, desc = "Toggle tabline" }
 maps.n["<leader>uu"] = { function() astronvim.ui.toggle_url_match() end, desc = "Toggle URL highlight" }
 maps.n["<leader>uw"] = { function() astronvim.ui.toggle_wrap() end, desc = "Toggle wrap" }
 maps.n["<leader>uy"] = { function() astronvim.ui.toggle_syntax() end, desc = "Toggle syntax highlight" }
+maps.n["<leader>uN"] = { function() astronvim.ui.toggle_ui_notifications() end, desc = "Toggle UI notifications" }
 
 astronvim.set_mappings(astronvim.user_plugin_opts("mappings", maps))

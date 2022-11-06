@@ -10,61 +10,27 @@
 -- @license GNU General Public License v3.0
 
 astronvim.lsp = {}
-local sign_define = vim.fn.sign_define
 local tbl_contains = vim.tbl_contains
+local tbl_isempty = vim.tbl_isempty
 local user_plugin_opts = astronvim.user_plugin_opts
 local conditional_func = astronvim.conditional_func
 local user_registration = user_plugin_opts("lsp.server_registration", nil, false)
 local skip_setup = user_plugin_opts "lsp.skip_setup"
 
-local signs = {
-  { name = "DiagnosticSignError", text = astronvim.get_icon "DiagnosticError" },
-  { name = "DiagnosticSignWarn", text = astronvim.get_icon "DiagnosticWarn" },
-  { name = "DiagnosticSignHint", text = astronvim.get_icon "DiagnosticHint" },
-  { name = "DiagnosticSignInfo", text = astronvim.get_icon "DiagnosticInfo" },
-}
-for _, sign in ipairs(signs) do
-  sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
+astronvim.lsp.formatting = astronvim.user_plugin_opts("lsp.formatting", { format_on_save = { enabled = true } })
+if type(astronvim.lsp.formatting.format_on_save) == "boolean" then
+  astronvim.lsp.formatting.format_on_save = { enabled = astronvim.lsp.formatting.format_on_save }
 end
-
-astronvim.lsp.formatting = astronvim.user_plugin_opts("lsp.formatting", { format_on_save = true, disabled = {} })
 
 astronvim.lsp.format_opts = vim.deepcopy(astronvim.lsp.formatting)
 astronvim.lsp.format_opts.disabled = nil
+astronvim.lsp.format_opts.format_on_save = nil
 astronvim.lsp.format_opts.filter = function(client)
   local filter = astronvim.lsp.formatting.filter
-  local disabled = astronvim.lsp.formatting.disabled
-  -- if client is fully disabled, return false
-  if vim.tbl_contains(disabled, client.name) then return false end
-  -- if filter function is defined and client is filtered out, return false
-  if type(filter) == "function" and not filter(client) then return false end
-  -- client has passed all checks, enable it for formatting
-  return true
+  local disabled = astronvim.lsp.formatting.disabled or {}
+  -- check if client is fully disabled or filtered by function
+  return not (vim.tbl_contains(disabled, client.name) or (type(filter) == "function" and not filter(client)))
 end
-
-astronvim.lsp.diagnostics = {
-  off = {
-    underline = false,
-    virtual_text = false,
-    signs = false,
-    update_in_insert = false,
-  },
-  on = user_plugin_opts("diagnostics", {
-    virtual_text = true,
-    signs = { active = signs },
-    update_in_insert = true,
-    underline = true,
-    severity_sort = true,
-    float = {
-      focused = false,
-      style = "minimal",
-      border = "rounded",
-      source = "always",
-      header = "",
-      prefix = "",
-    },
-  }),
-}
 
 --- Helper function to set up a given server with the Neovim LSP client
 -- @param server the name of the server to be setup
@@ -96,7 +62,7 @@ astronvim.lsp.on_attach = function(client, bufnr)
 
   if capabilities.codeActionProvider then
     lsp_mappings.n["<leader>la"] = { function() vim.lsp.buf.code_action() end, desc = "LSP code action" }
-    lsp_mappings.v["<leader>la"] = { function() vim.lsp.buf.range_code_action() end, desc = "Range LSP code action" }
+    lsp_mappings.v["<leader>la"] = lsp_mappings.n["<leader>la"]
   end
 
   if capabilities.declarationProvider then
@@ -112,28 +78,37 @@ astronvim.lsp.on_attach = function(client, bufnr)
       function() vim.lsp.buf.format(astronvim.lsp.format_opts) end,
       desc = "Format code",
     }
-    lsp_mappings.v["<leader>lf"] = {
-      function()
-        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, true, true), "n", false)
-        vim.lsp.buf.range_formatting(astronvim.lsp.format_opts)
-      end,
-      desc = "Range format code",
-    }
+    lsp_mappings.v["<leader>lf"] = lsp_mappings.n["<leader>lf"]
 
     vim.api.nvim_buf_create_user_command(
       bufnr,
       "Format",
-      function() vim.lsp.buf.format(astronvim.default_tbl({ async = true }, astronvim.lsp.format_opts)) end,
+      function() vim.lsp.buf.format(astronvim.lsp.format_opts) end,
       { desc = "Format file with LSP" }
     )
-    if astronvim.lsp.formatting.format_on_save then
-      vim.api.nvim_create_augroup("auto_format", { clear = true })
+    local autoformat = astronvim.lsp.formatting.format_on_save
+    local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
+    if
+      autoformat.enabled
+      and (tbl_isempty(autoformat.allow_filetypes or {}) or tbl_contains(autoformat.allow_filetypes, filetype))
+      and (tbl_isempty(autoformat.ignore_filetypes or {}) or not tbl_contains(autoformat.ignore_filetypes, filetype))
+    then
+      local autocmd_group = "auto_format_" .. bufnr
+      vim.api.nvim_create_augroup(autocmd_group, { clear = true })
       vim.api.nvim_create_autocmd("BufWritePre", {
-        group = "auto_format",
-        desc = "Auto format before save",
-        pattern = "<buffer>",
-        callback = function() vim.lsp.buf.format(astronvim.lsp.format_opts) end,
+        group = autocmd_group,
+        buffer = bufnr,
+        desc = "Auto format buffer " .. bufnr .. " before save",
+        callback = function()
+          if vim.g.autoformat_enabled then
+            vim.lsp.buf.format(astronvim.default_tbl({ bufnr = bufnr }, astronvim.lsp.format_opts))
+          end
+        end,
       })
+      lsp_mappings.n["<leader>uf"] = {
+        function() astronvim.ui.toggle_autoformat() end,
+        desc = "Toggle autoformatting",
+      }
     end
   end
 
@@ -182,9 +157,7 @@ astronvim.lsp.on_attach = function(client, bufnr)
   end
 
   local on_attach_override = user_plugin_opts("lsp.on_attach", nil, false)
-  local aerial_avail, aerial = pcall(require, "aerial")
   conditional_func(on_attach_override, true, client, bufnr)
-  conditional_func(aerial.on_attach, aerial_avail, client, bufnr)
 end
 
 --- The default AstroNvim LSP capabilities

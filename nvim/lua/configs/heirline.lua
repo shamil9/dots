@@ -49,7 +49,17 @@ local function setup_colors()
     winbarnc_bg = WinBarNC.bg,
   })
 
-  for _, section in ipairs { "git_branch", "file_info", "git_diff", "diagnostics", "lsp", "treesitter", "nav" } do
+  for _, section in ipairs {
+    "git_branch",
+    "file_info",
+    "git_diff",
+    "diagnostics",
+    "lsp",
+    "macro_recording",
+    "cmd_info",
+    "treesitter",
+    "nav",
+  } do
     if not colors[section .. "_bg"] then colors[section .. "_bg"] = colors["section_bg"] end
     if not colors[section .. "_fg"] then colors[section .. "_fg"] = colors["section_fg"] end
   end
@@ -67,6 +77,8 @@ local heirline_opts = astronvim.user_plugin_opts("plugins.heirline", {
     ),
     astronvim.status.component.git_diff(),
     astronvim.status.component.diagnostics(),
+    astronvim.status.component.fill(),
+    astronvim.status.component.cmd_info(),
     astronvim.status.component.fill(),
     astronvim.status.component.lsp(),
     astronvim.status.component.treesitter(),
@@ -89,20 +101,18 @@ local heirline_opts = astronvim.user_plugin_opts("plugins.heirline", {
       astronvim.status.component.breadcrumbs { hl = { fg = "winbar_fg", bg = "winbar_bg" } },
     },
     astronvim.status.component.file_info {
-      file_icon = { highlight = false },
+      file_icon = { hl = false },
       hl = { fg = "winbarnc_fg", bg = "winbarnc_bg" },
       surround = false,
     },
   },
 })
-heirline.setup(heirline_opts[1], heirline_opts[2])
+heirline.setup(heirline_opts[1], heirline_opts[2], heirline_opts[3])
 
 vim.api.nvim_create_augroup("Heirline", { clear = true })
-vim.api.nvim_create_autocmd("ColorScheme", {
+vim.api.nvim_create_autocmd("User", {
+  pattern = "AstroColorScheme",
   group = "Heirline",
   desc = "Refresh heirline colors",
-  callback = function()
-    heirline.reset_highlights()
-    heirline.load_colors(setup_colors())
-  end,
+  callback = function() require("heirline.utils").on_colorscheme(setup_colors()) end,
 })
