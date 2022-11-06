@@ -65,7 +65,7 @@ shift + lalt - space : \
 
 # Make window native fullscreen
 lalt - f         : yabai -m window --toggle zoom-fullscreen
-shift + lalt - f : yabai -m window --toggle native-fullscreen
+ctrl + lalt - f : yabai -m window --ratio abs:0.70
 
 # Applications
 # hyper - c : open /Applications/Visual\ Studio\ Code.app
