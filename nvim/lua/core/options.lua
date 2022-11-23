@@ -1,3 +1,4 @@
+vim.opt.shortmess:append { s = true, I = true } -- disable startup message
 astronvim.vim_opts(astronvim.user_plugin_opts("options", {
   opt = {
     backspace = vim.opt.backspace + { "nostop" }, -- Don't stop backspace at insert

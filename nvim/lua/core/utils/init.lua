@@ -57,6 +57,8 @@ astronvim.default_compile_path = stdpath "data" .. "/packer_compiled.lua"
 astronvim.user_terminals = {}
 --- table of plugins to load with git
 astronvim.git_plugins = {}
+--- table of plugins to load when file opened
+astronvim.file_plugins = {}
 --- regex used for matching a valid URL/URI string
 astronvim.url_matcher =
   "\\v\\c%(%(h?ttps?|ftp|file|ssh|git)://|[a-z]+[@][a-z]+[.][a-z]+:)%([&:#*@~%_\\-=?!+;/0-9a-z]+%(%([.;/?]|[.][.]+)[&:#*@~%_\\-=?!+/0-9a-z]+|:\\d+|,%(%(%(h?ttps?|ftp|file|ssh|git)://|[a-z]+[@][a-z]+[.][a-z]+:)@![0-9a-z]+))*|\\([&:#*@~%_\\-=?!+;/.0-9a-z]*\\)|\\[[&:#*@~%_\\-=?!+;/.0-9a-z]*\\]|\\{%([&:#*@~%_\\-=?!+;/.0-9a-z]*|\\{[&:#*@~%_\\-=?!+;/.0-9a-z]*})\\})+"
@@ -151,7 +153,15 @@ end
 -- @param msg the notification body
 -- @param type the type of the notification (:help vim.log.levels)
 -- @param opts table of nvim-notify options to use (:help notify-options)
-function astronvim.notify(msg, type, opts) vim.notify(msg, type, astronvim.default_tbl(opts, { title = "AstroNvim" })) end
+function astronvim.notify(msg, type, opts)
+  vim.schedule(function() vim.notify(msg, type, astronvim.default_tbl(opts, { title = "AstroNvim" })) end)
+end
+
+--- Trigger an AstroNvim user event
+-- @param event the event name to be appended to Astro
+function astronvim.event(event)
+  vim.schedule(function() vim.api.nvim_exec_autocmds("User", { pattern = "Astro" .. event }) end)
+end
 
 --- Wrapper function for neovim echo API
 -- @param messages an array like table where each item is an array like table of strings to echo
@@ -226,7 +236,18 @@ function astronvim.initialize_packer()
     else
       -- if there is no compiled file, ask user to sync packer
       require "core.plugins"
-      astronvim.echo { { "Please run " }, { ":PackerSync", "Title" } }
+      vim.api.nvim_create_autocmd("User", {
+        once = true,
+        pattern = "PackerComplete",
+        callback = function()
+          vim.cmd.bw()
+          vim.tbl_map(require, { "nvim-treesitter", "mason" })
+          astronvim.notify "Mason is installing packages if configured, check status with :Mason"
+        end,
+      })
+      vim.opt.cmdheight = 1
+      vim.notify "Please wait while plugins are installed..."
+      vim.cmd.PackerSync()
     end
   end
 end
@@ -424,6 +445,22 @@ end
 -- @return boolean value if the plugin is available
 function astronvim.is_available(plugin) return packer_plugins ~= nil and packer_plugins[plugin] ~= nil end
 
+--- A helper function to wrap a module function to require a plugin before running
+-- @param plugin the plugin string to call `require("packer").laoder` with
+-- @param module the system module where the functions live (e.g. `vim.ui`)
+-- @param func_names a string or a list like table of strings for functions to wrap in the given moduel (e.g. `{ "ui", "select }`)
+function astronvim.load_plugin_with_func(plugin, module, func_names)
+  if type(func_names) == "string" then func_names = { func_names } end
+  for _, func in ipairs(func_names) do
+    local old_func = module[func]
+    module[func] = function(...)
+      module[func] = old_func
+      require("packer").loader(plugin)
+      module[func](...)
+    end
+  end
+end
+
 --- Table based API for setting keybindings
 -- @param map_table A nested table where the first key is the vim mode, the second key is the key to map, and the value is the function to set the mapping to
 -- @param base A base set of options to set on every keybinding
@@ -478,6 +515,7 @@ end
 require "core.utils.ui"
 require "core.utils.status"
 require "core.utils.updater"
+require "core.utils.mason"
 require "core.utils.lsp"
 
 return astronvim

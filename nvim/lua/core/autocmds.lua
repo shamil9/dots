@@ -114,7 +114,7 @@ cmd({ "VimEnter", "ColorScheme" }, {
         end
       end
     end
-    vim.cmd [[doautocmd User AstroColorScheme]]
+    astronvim.event "ColorScheme"
   end,
 })
 
@@ -124,13 +124,37 @@ vim.api.nvim_create_autocmd("BufRead", {
     vim.fn.system("git -C " .. vim.fn.expand "%:p:h" .. " rev-parse")
     if vim.v.shell_error == 0 then
       vim.api.nvim_del_augroup_by_name "git_plugin_lazy_load"
-      vim.schedule(function() vim.tbl_map(require("packer").loader, astronvim.git_plugins) end)
+      vim.tbl_map(require("packer").loader, astronvim.git_plugins)
+    end
+  end,
+})
+vim.api.nvim_create_autocmd({ "BufRead", "BufWinEnter", "BufNewFile" }, {
+  group = vim.api.nvim_create_augroup("file_plugin_lazy_load", { clear = true }),
+  callback = function()
+    local title = vim.fn.expand "%"
+    if not (title == "" or title == "[packer]" or title:match "^neo%-tree%s+filesystem") then
+      vim.api.nvim_del_augroup_by_name "file_plugin_lazy_load"
+      vim.tbl_map(require("packer").loader, astronvim.file_plugins)
     end
   end,
 })
 
+create_command(
+  "AstroUpdatePackages",
+  function() astronvim.updater.update_packages() end,
+  { desc = "Update Packer and Mason" }
+)
 create_command("AstroUpdate", function() astronvim.updater.update() end, { desc = "Update AstroNvim" })
 create_command("AstroReload", function() astronvim.updater.reload() end, { desc = "Reload AstroNvim" })
 create_command("AstroVersion", function() astronvim.updater.version() end, { desc = "Check AstroNvim Version" })
 create_command("AstroChangelog", function() astronvim.updater.changelog() end, { desc = "Check AstroNvim Changelog" })
 create_command("ToggleHighlightURL", function() astronvim.ui.toggle_url_match() end, { desc = "Toggle URL Highlights" })
+
+if is_available "mason.nvim" then
+  create_command("MasonUpdateAll", function() astronvim.mason.update_all() end, { desc = "Update Mason Packages" })
+  create_command(
+    "MasonUpdate",
+    function(opts) astronvim.mason.update(opts.args) end,
+    { nargs = 1, desc = "Update Mason Package" }
+  )
+end
