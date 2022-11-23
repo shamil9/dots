@@ -21,9 +21,9 @@ return {
 
   -- Add overrides for LSP server settings, the keys are the name of the server
   ["server-settings"] = {
-    volar = {
-      on_attach = function(client) client.server_capabilities.document_formatting = false end,
-    },
+    -- volar = {
+    --   on_attach = function(client) client.server_capabilities.document_formatting = false end,
+    -- },
     stylelint_lsp = {
       on_attach = function(client) client.server_capabilities.document_formatting = false end,
     },
