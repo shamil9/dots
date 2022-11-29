@@ -44,6 +44,12 @@ ctrl + lalt - s : yabai -m window --toggle split
 # Equalize size of windows
 ctrl + lalt - e : yabai -m space --balance
 
+# Stack windows
+ctrl + lalt - t : yabai -m config layout stack
+
+# Unstack windows
+ctrl + lalt - g : yabai -m config layout bsp
+
 # Rotate windows clockwise and anticlockwise
 lalt - r         : yabai -m space --rotate 270
 shift + lalt - r : yabai -m space --rotate 90
