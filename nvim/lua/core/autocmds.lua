@@ -1,14 +1,29 @@
 local is_available = astronvim.is_available
 local user_plugin_opts = astronvim.user_plugin_opts
+local namespace = vim.api.nvim_create_namespace
 local cmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 local create_command = vim.api.nvim_create_user_command
+
+vim.on_key(function(char)
+  if vim.fn.mode() == "n" then
+    local new_hlsearch = vim.tbl_contains({ "<CR>", "n", "N", "*", "#", "?", "/" }, vim.fn.keytrans(char))
+    if vim.opt.hlsearch:get() ~= new_hlsearch then vim.opt.hlsearch = new_hlsearch end
+  end
+end, namespace "auto_hlsearch")
 
 cmd({ "VimEnter", "FileType", "BufEnter", "WinEnter" }, {
   desc = "URL Highlighting",
   group = augroup("highlighturl", { clear = true }),
   pattern = "*",
   callback = function() astronvim.set_url_match() end,
+})
+
+cmd("TextYankPost", {
+  desc = "Highlight yanked text",
+  group = augroup("highlightyank", { clear = true }),
+  pattern = "*",
+  callback = function() vim.highlight.on_yank() end,
 })
 
 cmd("FileType", {
@@ -103,6 +118,15 @@ if is_available "neo-tree.nvim" then
   })
 end
 
+if is_available "nvim-dap-ui" then
+  vim.api.nvim_create_autocmd("FileType", {
+    desc = "Make q close dap floating windows",
+    group = vim.api.nvim_create_augroup("dapui", { clear = true }),
+    pattern = "dap-float",
+    callback = function() vim.keymap.set("n", "q", "<cmd>close!<cr>") end,
+  })
+end
+
 cmd({ "VimEnter", "ColorScheme" }, {
   desc = "Load custom highlights from user configuration",
   group = augroup("astronvim_highlights", { clear = true }),
@@ -124,7 +148,8 @@ vim.api.nvim_create_autocmd("BufRead", {
     vim.fn.system("git -C " .. vim.fn.expand "%:p:h" .. " rev-parse")
     if vim.v.shell_error == 0 then
       vim.api.nvim_del_augroup_by_name "git_plugin_lazy_load"
-      vim.tbl_map(require("packer").loader, astronvim.git_plugins)
+      local packer = require "packer"
+      vim.tbl_map(function(plugin) packer.loader(plugin) end, astronvim.git_plugins)
     end
   end,
 })
@@ -134,7 +159,8 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufWinEnter", "BufNewFile" }, {
     local title = vim.fn.expand "%"
     if not (title == "" or title == "[packer]" or title:match "^neo%-tree%s+filesystem") then
       vim.api.nvim_del_augroup_by_name "file_plugin_lazy_load"
-      vim.tbl_map(require("packer").loader, astronvim.file_plugins)
+      local packer = require "packer"
+      vim.tbl_map(function(plugin) packer.loader(plugin) end, astronvim.file_plugins)
     end
   end,
 })
