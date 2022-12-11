@@ -3,7 +3,9 @@
 /thefuck
 /coc
 /yarn*
+/nvim
+/fish
+!/fish/config.fish
 packer_compiled.lua
 packer_snapshot
 .DS_Store
-aliases

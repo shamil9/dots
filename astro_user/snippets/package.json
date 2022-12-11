@@ -1,0 +1,34 @@
+{
+  "name": "user snippets",
+  "engines": {
+    "vscode": "^1.11.0"
+  },
+  "contributes": {
+    "snippets": [
+      {
+        "language": "scss",
+        "path": "./scss.json"
+      },
+      {
+        "language": "vue-scss",
+        "path": "./scss.json"
+      },
+      {
+        "language": "vue-html",
+        "path": "./vue-html.json"
+      },
+      {
+        "language": "vue",
+        "path": "./vue.json"
+      },
+      {
+        "language": "javascript",
+        "path": "./js.json"
+      },
+      {
+        "language": "typescript",
+        "path": "./ts.json"
+      }
+    ]
+  }
+}
