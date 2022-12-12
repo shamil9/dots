@@ -6,6 +6,8 @@
 /nvim
 /fish/*
 !/fish/config.fish
+/lazygit/*
+!/lazygit/config.yml
 packer_compiled.lua
 packer_snapshot
 .DS_Store
