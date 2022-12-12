@@ -3,7 +3,6 @@ if status is-interactive
 end
 
 begin
-  set --local BREW_PATH (brew --prefix)
   set --local BREW_BIN $HOME/.linuxbrew/bin
   if test -d $BREW_BIN
     fish_add_path -p $BREW_BIN
@@ -13,6 +12,8 @@ begin
   if test -d $CARGO_BIN
     fish_add_path -p $CARGO_BIN
   end
+
+  set --local BREW_PATH (brew --prefix)
 
   set --local AUTOJUMP_PATH $BREW_PATH/share/autojump/autojump.fish
   if test -e $AUTOJUMP_PATH
