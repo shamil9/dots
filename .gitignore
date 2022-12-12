@@ -4,7 +4,7 @@
 /coc
 /yarn*
 /nvim
-/fish
+/fish/*
 !/fish/config.fish
 packer_compiled.lua
 packer_snapshot
