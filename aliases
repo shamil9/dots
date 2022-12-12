@@ -5,7 +5,7 @@ alias initvi='rm -rf ~/.local/share/nvim &&
   ln -s ~/.config/astro_user ~/.config/nvim/lua/user &&
   nvim  --headless -c "autocmd User PackerComplete quitall"'
 
-alias lg=lazygit
+alias lg=lazygit --use-config-file="$HOME/.config/lazygit/config.yml"
 alias gaa='git add .'
 alias gcm='git commit -m'
 alias gco='git checkout'
