@@ -1,6 +1,12 @@
 return {
   { "EdenEast/nightfox.nvim" },
   { "tpope/vim-unimpaired" },
+  {
+    "ggandor/leap.nvim",
+    config = function()
+      require("leap").add_default_mappings(true)
+    end,
+  },
   --[[ { ]]
   --[[   "booperlv/nvim-gomove", ]]
   --[[   config = function() ]]
@@ -18,7 +24,9 @@ return {
   {
     "ray-x/lsp_signature.nvim",
     event = "BufRead",
-    config = function() require("lsp_signature").setup() end,
+    config = function()
+      require("lsp_signature").setup()
+    end,
   },
 
   -- We also support a key value style plugin definition similar to NvChad:
