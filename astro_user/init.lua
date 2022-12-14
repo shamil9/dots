@@ -7,18 +7,23 @@
 local config = {
   -- Set colorscheme to use
   colorscheme = "nordfox",
-  options = require "user.core.options",
-  header = require "user.core.header",
-  mappings = require "user.core.mappings",
+  options = require("user.core.options"),
+  header = require("user.core.header"),
+  mappings = require("user.core.mappings"),
+
+  diagnostics = {
+    update_in_insert = false,
+  },
 
   -- Configure plugins
   plugins = {
-    init = require "user.plugins.plugins",
+    init = require("user.plugins.plugins"),
 
     -- All other entries override the require("<key>").setup({...}) call for default plugins
     ["null-ls"] = function(config) -- overrides `require("null-ls").setup(config)`
       -- config variable is the default configuration table for the setup functino call
-      local null_ls = require "null-ls"
+      local null_ls = require("null-ls")
+      config.update_in_insert = false
       -- Check supported formatters and linters
       -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
       -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
@@ -52,14 +57,14 @@ local config = {
       ensure_installed = { "prettier", "stylua" },
     },
     packer = { -- overrides `require("packer").setup(...)`
-      compile_path = vim.fn.stdpath "data" .. "/packer_compiled.lua",
+      compile_path = vim.fn.stdpath("data") .. "/packer_compiled.lua",
     },
   },
 
-  lsp = require "user.plugins.lsp",
-  luasnip = require "user.plugins.luasnip",
-  cmp = require "user.plugins.cmp",
-  ["which-key"] = require "user.plugins.whichkey",
+  lsp = require("user.plugins.lsp"),
+  luasnip = require("user.plugins.luasnip"),
+  cmp = require("user.plugins.cmp"),
+  ["which-key"] = require("user.plugins.whichkey"),
 
   -- This function is run last and is a good place to configuring
   -- augroups/autocommands and custom filetypes also this just pure lua so
