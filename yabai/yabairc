@@ -69,6 +69,7 @@ yabai -m rule --add app=Finder manage=off border=off
 yabai -m rule --add app=Steam manage=off border=off
 yabai -m rule --add app="Looking Glass" manage=off border=off
 yabai -m rule --add app=iTerm2 opacity=1.0 manage=off border=off
+yabai -m rule --add app="^Safari$" manage=off grid=30:4:1:1:2:28
 
 # ===== Signals ================================
 
