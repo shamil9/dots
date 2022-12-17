@@ -29,8 +29,14 @@ local config = {
       -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
       config.sources = {
         -- Set a formatter
+        null_ls.builtins.formatting.eslint_d,
+        null_ls.builtins.diagnostics.eslint_d,
+        null_ls.builtins.formatting.prettierd.with({
+          -- env = {
+          --   PRETTIERD_LOCAL_PRETTIER_ONLY = 1,
+          -- },
+        }),
         null_ls.builtins.formatting.stylua,
-        null_ls.builtins.formatting.prettier,
       }
       -- set up null-ls's on_attach function
       -- NOTE: You can remove this on attach function to disable format on save
@@ -50,11 +56,11 @@ local config = {
     },
     -- use mason-lspconfig to configure LSP installations
     ["mason-lspconfig"] = { -- overrides `require("mason-lspconfig").setup(...)`
-      ensure_installed = { "sumneko_lua", "tsserver", "volar", "eslint" },
+      ensure_installed = { "sumneko_lua", "tsserver", "volar", "stylelint_lsp", "eslint" },
     },
     -- use mason-tool-installer to configure DAP/Formatters/Linter installation
     ["mason-tool-installer"] = { -- overrides `require("mason-tool-installer").setup(...)`
-      ensure_installed = { "prettier", "stylua" },
+      ensure_installed = { "stylua", "prettierd", "eslint_d" },
     },
     packer = { -- overrides `require("packer").setup(...)`
       compile_path = vim.fn.stdpath("data") .. "/packer_compiled.lua",
