@@ -1,6 +1,7 @@
 return {
   { "EdenEast/nightfox.nvim" },
   { "tpope/vim-unimpaired" },
+  { "tpope/vim-surround" },
   {
     "ggandor/leap.nvim",
     config = function()
