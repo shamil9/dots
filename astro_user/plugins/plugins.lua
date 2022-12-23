@@ -1,4 +1,5 @@
 return {
+  { "catppuccin/nvim", as = "catppuccin" },
   { "EdenEast/nightfox.nvim" },
   { "tpope/vim-unimpaired" },
   { "tpope/vim-surround" },

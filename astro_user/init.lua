@@ -6,7 +6,7 @@
 -- where a value with no key simply has an implicit numeric key
 local config = {
   -- Set colorscheme to use
-  colorscheme = "nordfox",
+  colorscheme = "catppuccin-mocha",
   options = require("user.core.options"),
   header = require("user.core.header"),
   mappings = require("user.core.mappings"),
