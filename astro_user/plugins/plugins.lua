@@ -1,4 +1,7 @@
 return {
+  ["nvim-dap"] = { disable = true },
+  ["mason-nvim-dap.nvim"] = { disable = true },
+  ["nvim-dap-ui"] = { disable = true },
   { "catppuccin/nvim", as = "catppuccin" },
   { "EdenEast/nightfox.nvim" },
   { "tpope/vim-unimpaired" },
