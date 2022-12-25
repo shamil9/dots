@@ -66,6 +66,7 @@ yabai -m config mouse_action2               resize
 yabai -m rule --add title="(Co(py|nnect)|Move|Info|System)" manage=off border=off
 yabai -m rule --add app="(Co(py|nnect)|Move|Info|System)" manage=off border=off
 yabai -m rule --add app=Finder manage=off border=off grid=30:6:1:1:4:28
+yabai -m rule --add app=ForkLift manage=off border=off grid=30:6:1:1:4:28
 yabai -m rule --add app=Steam manage=off border=off
 yabai -m rule --add app="Looking Glass" manage=off border=off
 yabai -m rule --add app=iTerm2 opacity=1.0 manage=off border=off
@@ -78,6 +79,12 @@ yabai -m signal --add event=application_activated \
 yabai -m signal --add event=application_deactivated \
                       app=Finder \
                       action="osascript -e 'tell application \"System Events\" to set visible of process \"Finder\" to false'"
+yabai -m signal --add event=application_activated \
+                      app=ForkLift \
+                      action="yabai -m rule --add app=ForkLift manage=off border=off grid=30:6:1:1:4:28"
+yabai -m signal --add event=application_deactivated \
+                      app=ForkLift \
+                      action="osascript -e 'tell application \"System Events\" to set visible of process \"ForkLift\" to false'"
 yabai -m signal --add event=application_activated \
                       app="^Safari$" \
                       action="yabai -m rule --add app=\"^Safari$\" manage=off border=off grid=30:4:1:1:2:28"
