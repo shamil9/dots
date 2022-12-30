@@ -36,6 +36,11 @@ return {
                                 client.server_capabilities.documentFormattingProvider = false
                         end,
                 },
+                sumneko_lua = {
+                        on_attach = function(client)
+                                client.server_capabilities.documentFormattingProvider = false
+                        end,
+                },
                 -- example for addings schemas to yamlls
                 -- yamlls = { -- override table for require("lspconfig").yamlls.setup({...})
                 --   settings = {

@@ -4,6 +4,7 @@
 /coc
 /yarn*
 /nvim
+/raycast
 /fish/*
 !/fish/config.fish
 packer_compiled.lua
