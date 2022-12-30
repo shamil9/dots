@@ -57,6 +57,9 @@ return {
 			desc = "Resize split right",
 		},
 		-- second key is the lefthand side of the map
+		-- leap.nvim
+		["`"] = { "<Plug>(leap-forward-to)", desc = "Leap forward" },
+		["~"] = { "<Plug>(leap-backward-to)", desc = "Leap backward" },
 		-- mappings seen under group name "Buffer"
 		["<leader>bb"] = { "<cmd>tabnew<cr>", desc = "New tab" },
 		["<leader>bc"] = { "<cmd>BufferLinePickClose<cr>", desc = "Pick to close" },
