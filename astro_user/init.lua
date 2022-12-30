@@ -33,7 +33,19 @@ local config = {
         null_ls.builtins.formatting.eslint_d,
         null_ls.builtins.diagnostics.eslint_d,
         null_ls.builtins.formatting.prettierd.with({
-          -- env = {
+          filetypes = {
+            "javascript",
+            "typescript",
+            "css",
+            "scss",
+            "html",
+            "json",
+            "yaml",
+            "markdown",
+            "graphql",
+            "md",
+            "txt",
+          }, -- env = {
           --   PRETTIERD_LOCAL_PRETTIER_ONLY = 1,
           -- },
         }),
