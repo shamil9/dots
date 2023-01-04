@@ -1,4 +1,5 @@
 return {
+  { "gpanders/editorconfig.nvim" },
   { "rebelot/kanagawa.nvim" },
   {
     "catppuccin/nvim",
