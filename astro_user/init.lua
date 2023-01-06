@@ -32,7 +32,7 @@ local config = {
         -- Set a formatter
         null_ls.builtins.formatting.eslint_d,
         null_ls.builtins.diagnostics.eslint_d,
-        null_ls.builtins.formatting.prettierd.with({
+        null_ls.builtins.formatting.prettier.with({
           filetypes = {
             "javascript",
             "typescript",
