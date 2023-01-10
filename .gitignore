@@ -10,3 +10,4 @@
 packer_compiled.lua
 packer_snapshot
 .DS_Store
+dump.rdb

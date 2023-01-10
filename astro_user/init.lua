@@ -30,25 +30,25 @@ local config = {
       -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
       config.sources = {
         -- Set a formatter
-        null_ls.builtins.formatting.eslint_d,
-        null_ls.builtins.diagnostics.eslint_d,
-        null_ls.builtins.formatting.prettier.with({
-          filetypes = {
-            "javascript",
-            "typescript",
-            "css",
-            "scss",
-            "html",
-            "json",
-            "yaml",
-            "markdown",
-            "graphql",
-            "md",
-            "txt",
-          }, -- env = {
-          --   PRETTIERD_LOCAL_PRETTIER_ONLY = 1,
-          -- },
-        }),
+        -- null_ls.builtins.formatting.eslint_d,
+        -- null_ls.builtins.diagnostics.eslint_d,
+        -- null_ls.builtins.formatting.prettier.with({
+        --   filetypes = {
+        --     "javascript",
+        --     "typescript",
+        --     "css",
+        --     "scss",
+        --     "html",
+        --     "json",
+        --     "yaml",
+        --     "markdown",
+        --     "graphql",
+        --     "md",
+        --     "txt",
+        --   }, -- env = {
+        --   --   PRETTIERD_LOCAL_PRETTIER_ONLY = 1,
+        --   -- },
+        -- }),
         null_ls.builtins.formatting.stylua,
       }
       -- set up null-ls's on_attach function
