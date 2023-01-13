@@ -58,12 +58,10 @@ local config = {
         if client.supports_method("textDocument/formatting") then
           vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
           vim.api.nvim_create_autocmd("BufWritePre", {
-            group = augroup,
-            buffer = bufnr,
             callback = function()
               -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
               -- vim.lsp.buf.formatting_sync()
-              vim.lsp.buf.format({ bufnr = bufnr })
+              vim.lsp.buf.format()
             end,
           })
         end
@@ -79,7 +77,7 @@ local config = {
     },
     -- use mason-tool-installer to configure DAP/Formatters/Linter installation
     ["mason-tool-installer"] = { -- overrides `require("mason-tool-installer").setup(...)`
-      ensure_installed = { "stylua", "prettierd", "eslint_d" },
+      ensure_installed = { "stylua", "prettierd" },
     },
     packer = { -- overrides `require("packer").setup(...)`
       compile_path = vim.fn.stdpath("data") .. "/packer_compiled.lua",
