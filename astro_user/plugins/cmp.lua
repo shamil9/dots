@@ -5,6 +5,9 @@
 -- false == disabled
 -- true == 1000
 return {
+  completion = {
+    completeopt = "menu,menuone,noinsert",
+  },
   source_priority = {
     nvim_lsp = 1000,
     luasnip = 750,
