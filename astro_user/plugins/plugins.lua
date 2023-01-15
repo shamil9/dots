@@ -1,4 +1,5 @@
 return {
+  { "echasnovski/mini.move" },
   { "gpanders/editorconfig.nvim" },
   { "rebelot/kanagawa.nvim" },
   {

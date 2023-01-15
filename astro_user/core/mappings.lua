@@ -7,7 +7,14 @@
 return {
   -- first key is the mode
   n = {
-    -- window management
+    -- mappings seen under group name "Buffer"
+    ["<leader>bb"] = { "<cmd>tabnew<cr>", desc = "New tab" },
+    ["<leader>bc"] = { "<cmd>BufferLinePickClose<cr>", desc = "Pick to close" },
+    ["<leader>bj"] = { "<cmd>BufferLinePick<cr>", desc = "Pick to jump" },
+    ["<leader>bt"] = { "<cmd>BufferLineSortByTabs<cr>", desc = "Sort by tabs" },
+    ["<leader>bd"] = { ":lua vim.lsp.buf.format()<cr>", desc = "Format buffer" },
+
+    -- smart-splits
     ["<C-Left>"] = {
       function()
         require("smart-splits").move_cursor_left()
@@ -56,33 +63,64 @@ return {
       end,
       desc = "Resize split right",
     },
-    -- second key is the lefthand side of the map
+
     -- leap.nvim
     ["`"] = { "<Plug>(leap-forward-to)", desc = "Leap forward" },
     ["~"] = { "<Plug>(leap-backward-to)", desc = "Leap backward" },
-    -- mappings seen under group name "Buffer"
-    ["<leader>bb"] = { "<cmd>tabnew<cr>", desc = "New tab" },
-    ["<leader>bc"] = { "<cmd>BufferLinePickClose<cr>", desc = "Pick to close" },
-    ["<leader>bj"] = { "<cmd>BufferLinePick<cr>", desc = "Pick to jump" },
-    ["<leader>bt"] = { "<cmd>BufferLineSortByTabs<cr>", desc = "Sort by tabs" },
-    ["<leader>bd"] = { ":lua vim.lsp.buf.format()<cr>", desc = "Format buffer" },
-    -- quick save
-    -- ["<C-s>"] = { ":w!<cr>", desc = "Save File" },  -- change description but the same command
-    ["<C-h>"] = { "<<", desc = "Move line to the left" },
-    ["<C-l>"] = { ">>", desc = "Move line to the right" },
-    ["<C-k>"] = { ":normal [e<cr>", desc = "Move line to the up" },
-    ["<C-j>"] = { ":normal ]e<cr>", desc = "Move line to the down" },
+
+    -- mini.move
+    ["<C-h>"] = {
+      function()
+        require("mini.move").move_line("left")
+      end,
+      desc = "Move line left",
+    },
+    ["<C-j>"] = {
+      function()
+        require("mini.move").move_line("bottom")
+      end,
+      desc = "Move line down",
+    },
+    ["<C-k>"] = {
+      function()
+        require("mini.move").move_line("up")
+      end,
+      desc = "Move line up",
+    },
+    ["<C-l>"] = {
+      function()
+        require("mini.move").move_line("right")
+      end,
+      desc = "Move line right",
+    },
   },
+
   v = {
-    ["<C-h>"] = { "<gv", desc = "Move code block to the left" },
-    ["<C-l>"] = { ">gv", desc = "Move code block to the right" },
+    ["<C-h>"] = {
+      function()
+        require("mini.move").move_selection("left")
+      end,
+      desc = "Move selection left",
+    },
+    ["<C-j>"] = {
+      function()
+        require("mini.move").move_selection("down")
+      end,
+      desc = "Move selection down",
+    },
+    ["<C-k>"] = {
+      function()
+        require("mini.move").move_selection("up")
+      end,
+      desc = "Move selection up",
+    },
+    ["<C-l>"] = {
+      function()
+        require("mini.move").move_selection("right")
+      end,
+      desc = "Move selection right",
+    },
   },
-  t = {
-    -- ["<C-h>"] = { "<gv", desc = "Move code block to the left" },
-    --[[ ["<C-k>"] = { ":visual [egv<cr>", desc = "Move code block to the up" }, ]]
-    --[[ ["<C-j>"] = { "]egv", desc = "Move code block to the down" }, ]]
-    -- ["<C-l>"] = { ">gv", desc = "Move code block to the right" },
-    -- setting a mapping to false will disable it
-    -- ["<esc>"] = false,
-  },
+
+  t = {},
 }
