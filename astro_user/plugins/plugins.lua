@@ -1,4 +1,11 @@
 return {
+  ["tpope/vim-surround"] = { disable = true },
+  {
+    "echasnovski/mini.surround",
+    config = function()
+      require("mini.surround").setup({})
+    end,
+  },
   { "echasnovski/mini.move" },
   { "gpanders/editorconfig.nvim" },
   { "rebelot/kanagawa.nvim" },
@@ -12,7 +19,6 @@ return {
     end,
   },
   { "EdenEast/nightfox.nvim" },
-  { "tpope/vim-surround" },
   { "ggandor/leap.nvim" },
   --[[ { ]]
   --[[   "booperlv/nvim-gomove", ]]
