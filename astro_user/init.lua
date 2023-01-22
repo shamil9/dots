@@ -17,57 +17,11 @@ local config = {
 
   -- Configure plugins
   plugins = {
-    init = require("user.plugins.plugins"),
+    init = require("user.plugins"),
     heirline = require("user.plugins.heirline"),
 
     -- All other entries override the require("<key>").setup({...}) call for default plugins
-    ["null-ls"] = function(config) -- overrides `require("null-ls").setup(config)`
-      -- config variable is the default configuration table for the setup functino call
-      local null_ls = require("null-ls")
-      config.update_in_insert = false
-      -- Check supported formatters and linters
-      -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
-      -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
-      config.sources = {
-        -- Set a formatter
-        -- null_ls.builtins.formatting.eslint_d,
-        -- null_ls.builtins.diagnostics.eslint_d,
-        -- null_ls.builtins.formatting.prettier.with({
-        --   filetypes = {
-        --     "javascript",
-        --     "typescript",
-        --     "css",
-        --     "scss",
-        --     "html",
-        --     "json",
-        --     "yaml",
-        --     "markdown",
-        --     "graphql",
-        --     "md",
-        --     "txt",
-        --   }, -- env = {
-        --   --   PRETTIERD_LOCAL_PRETTIER_ONLY = 1,
-        --   -- },
-        -- }),
-        null_ls.builtins.formatting.stylua,
-      }
-      -- set up null-ls's on_attach function
-      -- NOTE: You can remove this on attach function to disable format on save
-      config.on_attach = function(client, bufnr)
-        local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-        if client.supports_method("textDocument/formatting") then
-          vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-          vim.api.nvim_create_autocmd("BufWritePre", {
-            callback = function()
-              -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
-              -- vim.lsp.buf.formatting_sync()
-              vim.lsp.buf.format()
-            end,
-          })
-        end
-      end
-      return config -- return final config table to use in require("null-ls").setup(config)
-    end,
+    ["null-ls"] = require("user.plugins.null-ls"),
     treesitter = { -- overrides `require("treesitter").setup(...)`
       ensure_installed = { "lua", "javascript", "typescript", "vue", "html", "scss" },
     },
@@ -84,10 +38,10 @@ local config = {
     },
   },
 
-  lsp = require("user.plugins.lsp"),
-  luasnip = require("user.plugins.luasnip"),
-  cmp = require("user.plugins.cmp"),
-  ["which-key"] = require("user.plugins.whichkey"),
+  lsp = require("user.config.lsp"),
+  luasnip = require("user.config.luasnip"),
+  cmp = require("user.config.cmp"),
+  ["which-key"] = require("user.config.whichkey"),
 
   -- This function is run last and is a good place to configuring
   -- augroups/autocommands and custom filetypes also this just pure lua so
