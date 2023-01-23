@@ -18,29 +18,30 @@ local config = {
   -- Configure plugins
   plugins = {
     init = require("user.plugins"),
-    heirline = require("user.plugins.heirline"),
 
-    -- All other entries override the require("<key>").setup({...}) call for default plugins
     ["null-ls"] = require("user.plugins.null-ls"),
+    heirline = require("user.plugins.heirline"),
+    cmp = require("user.plugins.cmp"),
+
     treesitter = { -- overrides `require("treesitter").setup(...)`
       ensure_installed = { "lua", "javascript", "typescript", "vue", "html", "scss" },
     },
-    -- use mason-lspconfig to configure LSP installations
-    ["mason-lspconfig"] = { -- overrides `require("mason-lspconfig").setup(...)`
+
+    ["mason-lspconfig"] = {
       ensure_installed = { "sumneko_lua", "tsserver", "volar", "stylelint_lsp", "eslint" },
     },
-    -- use mason-tool-installer to configure DAP/Formatters/Linter installation
-    ["mason-tool-installer"] = { -- overrides `require("mason-tool-installer").setup(...)`
+
+    ["mason-tool-installer"] = {
       ensure_installed = { "stylua", "prettierd" },
     },
-    packer = { -- overrides `require("packer").setup(...)`
+
+    packer = {
       compile_path = vim.fn.stdpath("data") .. "/packer_compiled.lua",
     },
   },
 
-  lsp = require("user.config.lsp"),
   luasnip = require("user.config.luasnip"),
-  cmp = require("user.config.cmp"),
+  lsp = require("user.config.lsp"),
   ["which-key"] = require("user.config.whichkey"),
 
   -- This function is run last and is a good place to configuring
@@ -57,19 +58,6 @@ local config = {
     --   pattern = "plugins.lua",
     --   command = "source <afile> | PackerSync",
     -- })
-
-    -- Set up custom filetypes
-    -- vim.filetype.add {
-    --   extension = {
-    --     foo = "fooscript",
-    --   },
-    --   filename = {
-    --     ["Foofile"] = "fooscript",
-    --   },
-    --   pattern = {
-    --     ["~/%.config/foo/.*"] = "fooscript",
-    --   },
-    -- }
   end,
 }
 
