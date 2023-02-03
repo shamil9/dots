@@ -1,10 +1,10 @@
 return function(config)
   config[1] = {
     hl = { fg = "fg", bg = "bg" },
-    astronvim.status.component.mode(),
+    astronvim.status.component.mode({ mode_text = { padding = { left = 1, right = 1 } } }),
     astronvim.status.component.git_branch(),
     astronvim.status.component.file_info({
-      filename = { modify = ":p" },
+      filename = { modify = ":p:." },
     }),
     astronvim.status.component.git_diff(),
     astronvim.status.component.diagnostics(),

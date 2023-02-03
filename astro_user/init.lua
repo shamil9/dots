@@ -25,6 +25,9 @@ local config = {
 
     treesitter = { -- overrides `require("treesitter").setup(...)`
       ensure_installed = { "lua", "javascript", "typescript", "vue", "html", "scss" },
+      indent = {
+        enable = true,
+      },
     },
 
     ["mason-lspconfig"] = {

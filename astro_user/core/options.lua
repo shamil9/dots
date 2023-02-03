@@ -18,6 +18,8 @@ return {
     signcolumn = "auto", -- sets vim.opt.signcolumn to auto
     wrap = false, -- sets vim.opt.wrap
     swapfile = false,
+    tabstop = 2,
+    shiftwidth = 2,
   },
   g = {
     mapleader = " ", -- sets vim.g.mapleader
