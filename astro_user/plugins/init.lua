@@ -3,6 +3,15 @@ return {
   ["rcarriga/nvim-dap-ui"] = { disable = false },
   ["jayp0521/mason-nvim-dap.nvim"] = { disable = false },
   {
+    "Pocco81/auto-save.nvim",
+    config = function()
+      require("auto-save").setup({
+        write_all_buffers = true,
+        trigger_events = { "FocusLost" },
+      })
+    end,
+  },
+  {
     "echasnovski/mini.surround",
     config = function()
       require("mini.surround").setup({})
