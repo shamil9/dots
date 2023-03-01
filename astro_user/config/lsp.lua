@@ -8,7 +8,7 @@ return {
   -- easily add or disable built in mappings added during LSP attaching
   mappings = {
     n = {
-      -- ["<leader>lf"] = false -- disable formatting keymap
+      ["<leader>lR"] = false,
     },
   },
   -- add to the global LSP on_attach function

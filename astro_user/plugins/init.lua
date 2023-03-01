@@ -3,6 +3,11 @@ return {
   ["rcarriga/nvim-dap-ui"] = { disable = false },
   ["jayp0521/mason-nvim-dap.nvim"] = { disable = false },
   {
+    "ibhagwan/fzf-lua",
+    -- optional for icon support
+    requires = { "nvim-tree/nvim-web-devicons" },
+  },
+  {
     "Pocco81/auto-save.nvim",
     config = function()
       require("auto-save").setup({

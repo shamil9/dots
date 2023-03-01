@@ -7,6 +7,12 @@
 return {
   -- first key is the mode
   n = {
+    -- FZF mappings
+    ["<leader>ff"] = { "<cmd>FzfLua files<cr>", desc = "Search files" },
+    ["<leader>fw"] = { "<cmd>FzfLua live_grep_native<cr>", desc = "Search pattern in project" },
+    ["<leader>ls"] = { "<cmd>FzfLua lsp_document_symbols<cr>", desc = "Search document symbols" },
+    ["<leader>lR"] = { "<cmd>FzfLua lsp_references<cr>", desc = "Search references" },
+
     -- mappings seen under group name "Buffer"
     ["<leader>bb"] = { "<cmd>tabnew<cr>", desc = "New tab" },
     ["<leader>bc"] = { "<cmd>BufferLinePickClose<cr>", desc = "Pick to close" },
