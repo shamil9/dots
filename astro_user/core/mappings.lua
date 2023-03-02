@@ -9,9 +9,15 @@ return {
   n = {
     -- FZF mappings
     ["<leader>ff"] = { "<cmd>FzfLua files<cr>", desc = "Search files" },
-    ["<leader>fw"] = { "<cmd>FzfLua live_grep_native<cr>", desc = "Search pattern in project" },
+    ["<leader>fw"] = {
+      ":lua require('fzf-lua').live_grep({ continue_last_search = true })<cr>",
+      desc = "Search pattern in project",
+    },
     ["<leader>ls"] = { "<cmd>FzfLua lsp_document_symbols<cr>", desc = "Search document symbols" },
-    ["<leader>lR"] = { "<cmd>FzfLua lsp_references<cr>", desc = "Search references" },
+    ["<leader>lR"] = {
+      ":lua require('fzf-lua').lsp_definitions({ sync = true, jump_to_single_result = true, jump_to_single_result_action = require('fzf-lua.actions').file_vsplit, })<cr>",
+      desc = "Search references",
+    },
 
     -- mappings seen under group name "Buffer"
     ["<leader>bb"] = { "<cmd>tabnew<cr>", desc = "New tab" },
