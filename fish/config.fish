@@ -51,4 +51,8 @@ begin
         source $ALIAS_PATH
     end
 
+    set --local EPICRC_PATH $HOME/.epicrc
+    if test -e $EPICRC_PATH
+        source $EPICRC_PATH
+    end
 end
