@@ -1,1 +1,5 @@
 promptToReturnFromSubprocess: false # display confirmation when subprocess terminates
+customCommands:
+  - key: "p"
+    command: "git pull --rebase --autostash"
+    context: "global"
