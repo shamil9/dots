@@ -22,7 +22,18 @@ return {
   },
   { "echasnovski/mini.move" },
   { "gpanders/editorconfig.nvim" },
-  { "rebelot/kanagawa.nvim" },
+  -- {
+  --   "rebelot/kanagawa.nvim",
+  --   config = function()
+  --     require("kanagawa").setup({
+  --       theme = "wave", -- Load "wave" theme when 'background' option is not set
+  --       background = { -- map the value of 'background' option to a theme
+  --         dark = "dragon", -- try "dragon" !
+  --         light = "lotus",
+  --       },
+  --     })
+  --   end,
+  -- },
   {
     "catppuccin/nvim",
     as = "catppuccin",
