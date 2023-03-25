@@ -7,6 +7,7 @@
 local config = {
   -- Set colorscheme to use
   colorscheme = "catppuccin-mocha",
+  -- colorscheme = "kanagawa-dragon",
   options = require("user.core.options"),
   header = require("user.core.header"),
   mappings = require("user.core.mappings"),

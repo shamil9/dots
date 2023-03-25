@@ -20,7 +20,7 @@ return {
     swapfile = false,
     tabstop = 2,
     shiftwidth = 2,
-    guicursor = "",
+    -- guicursor = "",
   },
   g = {
     mapleader = " ", -- sets vim.g.mapleader
