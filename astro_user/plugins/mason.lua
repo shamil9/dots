@@ -2,7 +2,7 @@ return {
   {
     "williamboman/mason-lspconfig.nvim",
     opts = {
-      ensure_installed = { "lua-language-server", "tsserver", "volar", "stylelint_lsp", "eslint" },
+      ensure_installed = { "lua_ls", "tsserver", "volar", "stylelint_lsp", "eslint" },
     },
   },
 

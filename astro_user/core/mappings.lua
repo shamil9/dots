@@ -8,7 +8,10 @@ return {
   -- first key is the mode
   n = {
     -- FZF mappings
-    ["<leader>ff"] = { "<cmd>FzfLua files<cr>", desc = "Search files" },
+    ["<leader>ff"] = {
+      ":lua require('fzf-lua').files({cmd='rg --files --hidden --follow'})<cr>",
+      desc = "Search files",
+    },
     ["<leader>fw"] = {
       ":lua require('fzf-lua').live_grep({ continue_last_search = true })<cr>",
       desc = "Search pattern in project",
