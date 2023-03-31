@@ -1,10 +1,10 @@
 return {
   "lewis6991/gitsigns.nvim",
-  enabled = vim.fn.executable "git" == 1,
+  enabled = vim.fn.executable("git") == 1,
   ft = "gitcommit",
   event = "User AstroGitFile",
   opts = {
-		numhl = true,
+    numhl = true,
     signs = {
       add = { text = "▎" },
       change = { text = "▎" },

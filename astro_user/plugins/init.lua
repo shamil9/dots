@@ -1,8 +1,8 @@
 return {
-	{"mfussenegger/nvim-dap", enable = false },
-  {"rcarriga/nvim-dap-ui", enable = false },
-  {"jay-babu/mason-nvim-dap.nvim", enable = false },
-	---
+  { "mfussenegger/nvim-dap", enable = false },
+  { "rcarriga/nvim-dap-ui", enable = false },
+  { "jay-babu/mason-nvim-dap.nvim", enable = false },
+  ---
   {
     "Pocco81/auto-save.nvim",
     config = function()

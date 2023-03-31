@@ -21,14 +21,12 @@ return {
       ":lua require('fzf-lua').lsp_definitions({ sync = true, jump_to_single_result = true, jump_to_single_result_action = require('fzf-lua.actions').file_vsplit, })<cr>",
       desc = "Search references",
     },
-
     -- mappings seen under group name "Buffer"
     ["<leader>bb"] = { "<cmd>tabnew<cr>", desc = "New tab" },
     ["<leader>bc"] = { "<cmd>BufferLinePickClose<cr>", desc = "Pick to close" },
     ["<leader>bj"] = { "<cmd>BufferLinePick<cr>", desc = "Pick to jump" },
     ["<leader>bt"] = { "<cmd>BufferLineSortByTabs<cr>", desc = "Sort by tabs" },
     ["<leader>bd"] = { ":lua vim.lsp.buf.format()<cr>", desc = "Format buffer" },
-
     -- smart-splits
     ["<C-Left>"] = {
       function()
@@ -78,11 +76,9 @@ return {
       end,
       desc = "Resize split right",
     },
-
     -- leap.nvim
     ["`"] = { "<Plug>(leap-forward-to)", desc = "Leap forward" },
     ["~"] = { "<Plug>(leap-backward-to)", desc = "Leap backward" },
-
     -- mini.move
     ["<C-h>"] = {
       function()
@@ -109,7 +105,6 @@ return {
       desc = "Move line right",
     },
   },
-
   v = {
     ["<C-h>"] = {
       function()
@@ -136,6 +131,5 @@ return {
       desc = "Move selection right",
     },
   },
-
   t = {},
 }

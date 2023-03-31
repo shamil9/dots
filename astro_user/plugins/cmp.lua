@@ -4,10 +4,10 @@ return {
     dependencies = { "rafamadriz/friendly-snippets" },
     -- config = require "plugins.configs.luasnip",
     config = function(plugin, opts)
-      require "plugins.configs.luasnip"(plugin, opts) -- include the default astronvim config that calls the setup call
+      require("plugins.configs.luasnip")(plugin, opts) -- include the default astronvim config that calls the setup call
       require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./lua/user/snippets" } })
 
-      local luasnip = require "luasnip"
+      local luasnip = require("luasnip")
 
       luasnip.filetype_extend("javascript", { "javascriptreact" })
       luasnip.filetype_extend("vue", { "scss" })
@@ -24,10 +24,12 @@ return {
     },
     event = "InsertEnter",
     opts = function()
-      local cmp = require "cmp"
+      local cmp = require("cmp")
       local snip_status_ok, luasnip = pcall(require, "luasnip")
       local lspkind_status_ok, lspkind = pcall(require, "lspkind")
-      if not snip_status_ok then return end
+      if not snip_status_ok then
+        return
+      end
       local border_opts = {
         border = "single",
         winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
@@ -35,12 +37,14 @@ return {
 
       local function has_words_before()
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
+        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
       end
 
       return {
         enabled = function()
-          if vim.api.nvim_get_option_value("buftype", { buf = 0 }) == "prompt" then return false end
+          if vim.api.nvim_get_option_value("buftype", { buf = 0 }) == "prompt" then
+            return false
+          end
           return vim.g.cmp_enabled
         end,
         preselect = cmp.PreselectMode.None,
@@ -49,7 +53,9 @@ return {
           format = lspkind_status_ok and lspkind.cmp_format(astronvim.lspkind) or nil,
         },
         snippet = {
-          expand = function(args) luasnip.lsp_expand(args.body) end,
+          expand = function(args)
+            luasnip.lsp_expand(args.body)
+          end,
         },
         duplicates = {
           nvim_lsp = 1,
@@ -66,27 +72,27 @@ return {
           completion = cmp.config.window.bordered(border_opts),
           documentation = cmp.config.window.bordered(border_opts),
         },
-				completion = {
-					completeopt = "menu,menuone,noinsert",
-				},
-				vscode = {
-					paths = {
-						"./lua/user/snippets",
-					},
-				},
+        completion = {
+          completeopt = "menu,menuone,noinsert",
+        },
+        vscode = {
+          paths = {
+            "./lua/user/snippets",
+          },
+        },
         mapping = {
-          ["<Up>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
-          ["<Down>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select },
-          ["<C-p>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
-          ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
-          ["<C-k>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
-          ["<C-j>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
+          ["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+          ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+          ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+          ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+          ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+          ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
           ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
           ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
           ["<C-y>"] = cmp.config.disable,
-          ["<C-e>"] = cmp.mapping { i = cmp.mapping.abort(), c = cmp.mapping.close() },
-          ["<CR>"] = cmp.mapping.confirm { select = false },
+          ["<C-e>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
+          ["<CR>"] = cmp.mapping.confirm({ select = false }),
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
@@ -108,12 +114,12 @@ return {
             end
           end, { "i", "s" }),
         },
-        sources = cmp.config.sources {
+        sources = cmp.config.sources({
           { name = "nvim_lsp", priority = 1000 },
           { name = "luasnip", priority = 750 },
           { name = "buffer", priority = 500 },
           { name = "path", priority = 250 },
-        },
+        }),
       }
     end,
   },
