@@ -1,6 +1,14 @@
 -- Extend LSP configuration
 return {
-  formatting = false,
+  format_on_save = {
+    enabled = false, -- enable or disable format on save globally
+    allow_filetypes = { -- enable format on save for specified filetypes only
+      -- "go",
+    },
+    ignore_filetypes = { -- disable format on save for specified filetypes
+      -- "python",
+    },
+  },
   -- enable servers that you already have installed without mason
   servers = {
     -- "pyright"
@@ -21,7 +29,7 @@ return {
   -- end,
 
   -- Add overrides for LSP server settings, the keys are the name of the server
-  ["server-settings"] = {
+  config = {
     tsserver = {
       on_attach = function(client)
         client.server_capabilities.documentFormattingProvider = false

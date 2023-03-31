@@ -1,21 +1,71 @@
-return function(config)
-  config[1] = {
-    hl = { fg = "fg", bg = "bg" },
-    astronvim.status.component.mode({ mode_text = { padding = { left = 1, right = 1 } } }),
-    astronvim.status.component.git_branch(),
-    astronvim.status.component.file_info({
-      filename = { modify = ":p:." },
-    }),
-    astronvim.status.component.git_diff(),
-    astronvim.status.component.diagnostics(),
-    astronvim.status.component.fill(),
-    astronvim.status.component.macro_recording(),
-    astronvim.status.component.fill(),
-    -- astronvim.status.component.lsp(),
-    astronvim.status.component.treesitter(),
-    -- astronvim.status.component.nav(),
-    astronvim.status.component.mode({ surround = { separator = "right" } }),
-  }
+return {
+  "rebelot/heirline.nvim",
+  event = "BufEnter",
+  opts = function()
+    local status = require "astronvim.utils.status"
 
-  return config
-end
+    return {
+      opts = {
+        disable_winbar_cb = function(args)
+          return status.condition.buffer_matches({
+            buftype = { "terminal", "prompt", "nofile", "help", "quickfix" },
+            filetype = { "NvimTree", "neo%-tree", "dashboard", "Outline", "aerial" },
+          }, args.buf)
+        end,
+      },
+      statusline = {
+        hl = { fg = "fg", bg = "bg" },
+        status.component.mode({ mode_text = { padding = { left = 1, right = 1 } } }),
+        status.component.git_branch(),
+        status.component.file_info({
+          filename = { modify = ":p:." },
+        }),
+        status.component.git_diff(),
+        status.component.diagnostics(),
+        status.component.fill(),
+        status.component.fill(),
+        -- status.component.lsp(),
+        status.component.treesitter(),
+        -- status.component.nav(),
+        status.component.mode({ surround = { separator = "right" } }),
+      },
+      winbar = nil,
+      tabline = { -- bufferline
+        { -- file tree padding
+          condition = function(self)
+            self.winid = vim.api.nvim_tabpage_list_wins(0)[1]
+            return status.condition.buffer_matches(
+              { filetype = { "aerial", "dapui_.", "neo%-tree", "NvimTree" } },
+              vim.api.nvim_win_get_buf(self.winid)
+            )
+          end,
+          provider = function(self) return string.rep(" ", vim.api.nvim_win_get_width(self.winid) + 1) end,
+          hl = { bg = "tabline_bg" },
+        },
+        status.heirline.make_buflist(status.component.tabline_file_info()), -- component for each buffer tab
+        status.component.fill { hl = { bg = "tabline_bg" } }, -- fill the rest of the tabline with background color
+        { -- tab list
+          condition = function() return #vim.api.nvim_list_tabpages() >= 2 end, -- only show tabs if there are more than one
+          status.heirline.make_tablist { -- component for each tab
+            provider = status.provider.tabnr(),
+            hl = function(self) return status.hl.get_attributes(status.heirline.tab_type(self, "tab"), true) end,
+          },
+          { -- close button for current tab
+            provider = status.provider.close_button { kind = "TabClose", padding = { left = 1, right = 1 } },
+            hl = status.hl.get_attributes("tab_close", true),
+            on_click = {
+              callback = function() require("astronvim.utils.buffer").close_tab() end,
+              name = "heirline_tabline_close_tab_callback",
+            },
+          },
+        },
+      },
+      statuscolumn = vim.fn.has "nvim-0.9" == 1 and {
+        status.component.foldcolumn(),
+        status.component.fill(),
+        status.component.numbercolumn(),
+        status.component.signcolumn(),
+      } or nil,
+    }
+  end
+}

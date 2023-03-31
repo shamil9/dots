@@ -1,8 +1,4 @@
 {
-  "SASS Include": {
-    "prefix": "inc",
-    "body": ["@include $1"]
-  },
   "SASS MQ": {
     "prefix": "mq",
     "body": ["@include mq($1) {", "  $2", "}"]

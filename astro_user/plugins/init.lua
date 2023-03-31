@@ -1,17 +1,8 @@
 return {
-  ["mfussenegger/nvim-dap"] = { disable = false },
-  ["rcarriga/nvim-dap-ui"] = { disable = false },
-  ["jayp0521/mason-nvim-dap.nvim"] = { disable = false },
-  ["Darazaki/indent-o-matic"] = { disable = false },
-  ---
-  require("user.plugins.fzf-lua"),
-  ---
-  {
-    "nmac427/guess-indent.nvim",
-    -- config = function()
-    --   require("guess-indent").setup({})
-    -- end,
-  },
+	{"mfussenegger/nvim-dap", enable = false },
+  {"rcarriga/nvim-dap-ui", enable = false },
+  {"jay-babu/mason-nvim-dap.nvim", enable = false },
+	---
   {
     "Pocco81/auto-save.nvim",
     config = function()
@@ -61,11 +52,11 @@ return {
   },
   { "EdenEast/nightfox.nvim" },
   { "ggandor/leap.nvim" },
-  {
-    "ray-x/lsp_signature.nvim",
-    event = "BufRead",
-    config = function()
-      require("lsp_signature").setup()
-    end,
-  },
+  -- {
+  --   "ray-x/lsp_signature.nvim",
+  --   event = "BufRead",
+  --   config = function()
+  --     require("lsp_signature").setup()
+  --   end,
+  -- },
 }
