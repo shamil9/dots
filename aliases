@@ -1,9 +1,9 @@
 alias vi=nvim
-alias initvi='rm -rf ~/.local/share/nvim && 
+alias initvi="rm -rf ~/.local/share/nvim && 
   rm -rf ~/.cache/nvim &&
   git clone https://github.com/AstroNvim/AstroNvim ~/.config/nvim &&
   ln -s ~/.config/astro_user ~/.config/nvim/lua/user &&
-  nvim  --headless -c "autocmd User PackerComplete quitall"'
+  nvim  --headless -c 'quitall'"
 
 alias lg='lazygit --use-config-file="$HOME/.config/lazygit/config.yml"'
 alias gaa='git add .'
