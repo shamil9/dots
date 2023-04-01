@@ -16,18 +16,15 @@ return {
       ":lua require('fzf-lua').live_grep({ continue_last_search = true })<cr>",
       desc = "Search pattern in project",
     },
-    ["<leader>ls"] = { "<cmd>FzfLua lsp_document_symbols<cr>", desc = "Search document symbols" },
-    ["<leader>lR"] = {
-      ":lua require('fzf-lua').lsp_definitions({ sync = true, jump_to_single_result = true, jump_to_single_result_action = require('fzf-lua.actions').file_vsplit, })<cr>",
-      desc = "Search references",
-    },
+    ["<leader>fo"] = { "<cmd>:FzfLua oldfiles<cr>", desc = "Show last open files" },
+    ["<leader>fk"] = { "<cmd>:FzfLua keymaps<cr>", desc = "Search for keymap" },
     -- mappings seen under group name "Buffer"
     ["<leader>bb"] = { "<cmd>tabnew<cr>", desc = "New tab" },
     ["<leader>bc"] = { "<cmd>BufferLinePickClose<cr>", desc = "Pick to close" },
     ["<leader>bj"] = { "<cmd>BufferLinePick<cr>", desc = "Pick to jump" },
     ["<leader>bt"] = { "<cmd>BufferLineSortByTabs<cr>", desc = "Sort by tabs" },
     ["<leader>bd"] = { ":lua vim.lsp.buf.format()<cr>", desc = "Format buffer" },
-    -- smart-splits
+    -- Smart-splits
     ["<C-Left>"] = {
       function()
         require("smart-splits").move_cursor_left()
@@ -103,6 +100,19 @@ return {
         require("mini.move").move_line("right")
       end,
       desc = "Move line right",
+    },
+    --- heirline
+    ["<S-h>"] = {
+      function()
+        require("astronvim.utils.buffer").nav(-(vim.v.count > 0 and vim.v.count or 1))
+      end,
+      desc = "Previous buffer",
+    },
+    ["<S-l>"] = {
+      function()
+        require("astronvim.utils.buffer").nav(vim.v.count > 0 and vim.v.count or 1)
+      end,
+      desc = "Next buffer",
     },
   },
   v = {

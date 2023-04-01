@@ -16,7 +16,13 @@ return {
   -- easily add or disable built in mappings added during LSP attaching
   mappings = {
     n = {
-      ["<leader>lR"] = false,
+      ["gr"] = { "<cmd>FzfLua lsp_references<cr>", desc = "Go to reference" },
+      ["gd"] = { "<cmd>FzfLua lsp_definitions<cr>", desc = "Go to definition" },
+      ["<leader>ls"] = { "<cmd>FzfLua lsp_document_symbols<cr>", desc = "Search document symbols" },
+      ["<leader>lR"] = {
+        ":lua require('fzf-lua').lsp_definitions({ sync = true, jump_to_single_result = true, jump_to_single_result_action = require('fzf-lua.actions').file_vsplit, })<cr>",
+        desc = "Search references",
+      },
     },
   },
   -- add to the global LSP on_attach function
