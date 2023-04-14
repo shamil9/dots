@@ -1,6 +1,6 @@
 return {
-  { "mfussenegger/nvim-dap", enable = false },
-  { "rcarriga/nvim-dap-ui", enable = false },
+  { "mfussenegger/nvim-dap",        enable = false },
+  { "rcarriga/nvim-dap-ui",         enable = false },
   { "jay-babu/mason-nvim-dap.nvim", enable = false },
   ---
   {
@@ -19,7 +19,6 @@ return {
     -- end,
   },
   { "echasnovski/mini.move" },
-  { "gpanders/editorconfig.nvim" },
   {
     "rebelot/kanagawa.nvim",
     config = function()
