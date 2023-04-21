@@ -1,7 +1,11 @@
 return {
-  { "mfussenegger/nvim-dap",        enable = false },
-  { "rcarriga/nvim-dap-ui",         enable = false },
-  { "jay-babu/mason-nvim-dap.nvim", enable = false },
+  { "mfussenegger/nvim-dap",               enabled = false },
+  { "rcarriga/nvim-dap-ui",                enabled = false },
+  { "jay-babu/mason-nvim-dap.nvim",        enabled = false },
+  { "lukas-reineke/indent-blankline.nvim", enabled = false },
+  { "stevearc/aerial.nvim",                enabled = false },
+  { "goolord/alpha-nvim",                  enabled = false },
+
   ---
   {
     "Pocco81/auto-save.nvim",
@@ -18,7 +22,6 @@ return {
     --   require("mini.surround").setup({})
     -- end,
   },
-  { "echasnovski/mini.move" },
   {
     "rebelot/kanagawa.nvim",
     config = function()
