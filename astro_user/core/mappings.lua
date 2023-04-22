@@ -18,6 +18,7 @@ return {
     },
     ["<leader>fo"] = { "<cmd>:FzfLua oldfiles<cr>", desc = "Show last open files" },
     ["<leader>fk"] = { "<cmd>:FzfLua keymaps<cr>", desc = "Search for keymap" },
+    ["<leader>gc"] = { "<cmd>:FzfLua git_commits<cr>", desc = "List commits" },
     -- mappings seen under group name "Buffer"
     ["<leader>bb"] = { "<cmd>tabnew<cr>", desc = "New tab" },
     ["<leader>bc"] = { "<cmd>BufferLinePickClose<cr>", desc = "Pick to close" },

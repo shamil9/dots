@@ -2,6 +2,7 @@ return {
   "ibhagwan/fzf-lua",
   -- optional for icon support
   requires = { "nvim-tree/nvim-web-devicons" },
+  cmd = "FzfLua",
   config = function()
     require("fzf-lua").setup({
       -- "fzf-native",
