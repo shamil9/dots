@@ -2,7 +2,6 @@ return {
   "ibhagwan/fzf-lua",
   -- optional for icon support
   requires = { "nvim-tree/nvim-web-devicons" },
-  lazy = false,
   config = function()
     require("fzf-lua").setup({
       -- "fzf-native",
@@ -20,7 +19,7 @@ return {
           cmd = "bat",
           args = "--style=numbers,changes --color always",
           theme = "Catppuccin-mocha", -- bat preview theme (bat --list-themes)
-          config = nil,               -- nil uses $BAT_CONFIG_PATH
+          config = nil, -- nil uses $BAT_CONFIG_PATH
         },
       },
       winopts = {
