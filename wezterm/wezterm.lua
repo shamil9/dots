@@ -40,7 +40,6 @@ local colors = {
   sapphire = "#7DC4E4",
   blue = "#8AADF4",
   lavender = "#B7BDF8",
-
   text = "#CAD3F5",
   subtext1 = "#B8C0E0",
   subtext0 = "#A5ADCB",
@@ -50,7 +49,6 @@ local colors = {
   surface2 = "#5B6078",
   surface1 = "#494D64",
   surface0 = "#363A4F",
-
   base = "#24273A",
   mantle = "#1E2030",
   crust = "#181926",
@@ -132,7 +130,7 @@ local function get_process(tab)
 
   return wezterm.format(
     process_icons[process_name]
-      or { { Foreground = { Color = colors.sky } }, { Text = string.format("[%s]", process_name) } }
+    or { { Foreground = { Color = colors.sky } }, { Text = string.format("[%s]", process_name) } }
   )
 end
 
@@ -141,7 +139,7 @@ local function get_current_working_dir(tab)
   local HOME_DIR = string.format("file://%s", os.getenv("HOME"))
 
   return current_dir == HOME_DIR and "  ~"
-    or string.format("  %s", string.gsub(current_dir, "(.*[/\\])(.*)", "%2"))
+      or string.format("  %s", string.gsub(current_dir, "(.*[/\\])(.*)", "%2"))
 end
 
 wezterm.on("format-tab-title", function(tab)
@@ -164,6 +162,8 @@ wezterm.on("update-right-status", function(window)
   }))
 end)
 
+local gpus = wezterm.gui.enumerate_gpus()
+
 return {
   color_scheme = "Catppuccin Mocha",
   color_schemes = {
@@ -172,10 +172,10 @@ return {
   font = wezterm.font_with_fallback({
     -- { family = "SF Mono", italic = false, bold = false },
     { family = "JetBrains Mono", italic = false },
-    { family = "MonoLisa", weight = "Medium", italic = false },
+    { family = "MonoLisa",       weight = "Medium", italic = false },
     "Monaco",
   }),
-  font_size = 17.0,
+  font_size = 15.0,
   -- cell_width = 1,
   -- freetype_load_target = "Light",
   line_height = 1.2,
@@ -208,6 +208,8 @@ return {
   window_background_opacity = 1.0,
   tab_max_width = 50,
   disable_default_key_bindings = false,
+  webgpu_preferred_adapter = gpus[1],
+  webgpu_power_preference = "HighPerformance",
   front_end = "WebGpu",
   colors = {
     split = colors.surface0,
