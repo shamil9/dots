@@ -41,5 +41,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
+vim.cmd("au FocusLost * :wa")
+
 -- Check if we need to reload the file when it changed
 vim.cmd("au FocusGained * :checktime")

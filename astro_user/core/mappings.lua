@@ -3,11 +3,21 @@
 -- Please use this mappings table to set keyboard mapping since this is the
 -- lower level configuration and more robust one. (which-key will
 -- automatically pick-up stored data by this setting.)
+local utils = require("astronvim.utils")
 
 return {
   -- first key is the mode
   n = {
-    -- FZF mappings
+    -- Neotree
+    ["<leader>e"] = {
+      ":Neotree filesystem toggle left<cr>",
+      desc = "Open file tree",
+    },
+    ["<leader>o"] = {
+      ":Neotree filesystem reveal left<cr>",
+      desc = "Open file tree",
+    },
+    -- FZF
     ["<leader>ff"] = {
       ":lua require('fzf-lua').files({cmd='rg --files --hidden --follow'})<cr>",
       desc = "Search files",
