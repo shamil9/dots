@@ -18,9 +18,13 @@ return {
       desc = "Open file tree",
     },
     -- FZF
-    ["<leader>ff"] = {
+    ["<leader>F"] = {
       ":lua require('fzf-lua').files({cmd='rg --files --hidden --follow'})<cr>",
-      desc = "Search files",
+      desc = "Search all files",
+    },
+    ["<leader>ff"] = {
+      ":lua require('fzf-lua').git_files({cmd='rg --files --hidden --follow'})<cr>",
+      desc = "Search Git files",
     },
     ["<leader>fw"] = {
       ":lua require('fzf-lua').live_grep({ continue_last_search = true })<cr>",

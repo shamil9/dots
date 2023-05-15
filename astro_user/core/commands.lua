@@ -45,3 +45,9 @@ vim.cmd("au FocusLost * :wa")
 
 -- Check if we need to reload the file when it changed
 vim.cmd("au FocusGained * :checktime")
+
+vim.cmd([[
+  if executable("rg")
+    set grepprg=rg\ --vimgrep\ --smart-case\ --hidden
+  endif
+]])
