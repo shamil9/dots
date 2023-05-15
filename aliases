@@ -23,3 +23,8 @@ alias cat=bat
 alias phpserve='php -S localhost:8000 && open http://localhost:8000'
 alias ping='prettyping --nolegend'
 alias ytdl='youtube-dl -f '\''bestaudio'\'' --write-thumbnail'
+
+alias t="tmux"
+alias ta="t a -t"
+alias tls="t ls"
+alias tn="t new -t"
