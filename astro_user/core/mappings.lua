@@ -19,11 +19,11 @@ return {
     },
     -- FZF
     ["<leader>F"] = {
-      ":lua require('fzf-lua').files({cmd='rg --files --hidden --follow'})<cr>",
+      ":lua require('fzf-lua').files({cmd='rg --files --hidden --follow  -g !{**/.git/*}'})<cr>",
       desc = "Search all files",
     },
     ["<leader>ff"] = {
-      ":lua require('fzf-lua').git_files({cmd='rg --files --hidden --follow'})<cr>",
+      ":lua require('fzf-lua').git_files({cmd='rg --files --hidden --follow -g !{**/.git/**}'})<cr>",
       desc = "Search Git files",
     },
     ["<leader>fw"] = {
