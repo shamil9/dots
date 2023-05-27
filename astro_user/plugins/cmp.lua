@@ -48,11 +48,11 @@ return {
           return vim.g.cmp_enabled
         end,
         preselect = cmp.PreselectMode.None,
-        performance = {
-          debounce = 500,
-          -- throttle = 500,
-          -- fetching_timeout = 500,
-        },
+        -- performance = {
+        -- debounce = 500,
+        -- throttle = 500,
+        -- fetching_timeout = 500,
+        -- },
         formatting = {
           fields = { "kind", "abbr", "menu" },
           format = lspkind_status_ok and lspkind.cmp_format(astronvim.lspkind) or nil,
@@ -121,9 +121,9 @@ return {
         },
         sources = cmp.config.sources({
           { name = "nvim_lsp", priority = 1000 },
-          { name = "luasnip",  priority = 750 },
-          { name = "buffer",   priority = 500 },
-          { name = "path",     priority = 250 },
+          { name = "luasnip", priority = 750 },
+          { name = "buffer", priority = 500 },
+          { name = "path", priority = 250 },
         }),
       }
     end,
