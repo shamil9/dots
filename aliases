@@ -16,13 +16,13 @@ alias gst='git status -s'
 alias nope='git reset --hard;git clean -df;'
 alias sudo='sudo '
 
-alias ls='exa --icons --grid -a --group-directories-first'
-alias la='exa --icons -a -l --group-directories-first'
+alias ls='eza --icons --grid -a --group-directories-first'
+alias la='eza --icons -a -l --group-directories-first'
 
 alias cat=bat
 alias phpserve='php -S localhost:8000 && open http://localhost:8000'
 alias ping='prettyping --nolegend'
-alias ytdl='youtube-dl -f '\''bestaudio'\'' --write-thumbnail'
+alias ytdl=yt-dlp -x --audio-format mp3 --audio-quality 0 --embed-thumbnail
 
 alias t="tmux"
 alias ta="t a -t"

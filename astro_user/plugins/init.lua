@@ -1,12 +1,32 @@
 return {
-  { "mfussenegger/nvim-dap",               enabled = false },
-  { "rcarriga/nvim-dap-ui",                enabled = false },
-  { "jay-babu/mason-nvim-dap.nvim",        enabled = false },
+  { "mfussenegger/nvim-dap", enabled = false },
+  { "rcarriga/nvim-dap-ui", enabled = false },
+  { "jay-babu/mason-nvim-dap.nvim", enabled = false },
   { "lukas-reineke/indent-blankline.nvim", enabled = false },
-  { "stevearc/aerial.nvim",                enabled = false },
-  { "goolord/alpha-nvim",                  enabled = false },
+  { "stevearc/aerial.nvim", enabled = false },
+  { "goolord/alpha-nvim", enabled = false },
 
   ---
+  -- {
+  --   "nvimdev/guard.nvim",
+  --   -- Builtin configuration, optional
+  --   dependencies = {
+  --     "nvimdev/guard-collection",
+  --   },
+  --   lazy = false,
+  --   config = function()
+  --     local ft = require("guard.filetype")
+  --     ft("lua"):fmt("stylua")
+  --     ft("typescript,javascript,typescriptreact,vue"):fmt("prettierd")
+  --
+  --     require("guard").setup({
+  --       -- the only options for the setup function
+  --       fmt_on_save = true,
+  --       -- Use lsp if no formatter was defined for this filetype
+  --       lsp_as_default_formatter = false,
+  --     })
+  --   end,
+  -- },
   {
     "Pocco81/auto-save.nvim",
     config = function()
