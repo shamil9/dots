@@ -18,19 +18,20 @@ return {
         hl = { fg = "fg", bg = "bg" },
         {
           condition = function() return not status.condition.is_active() end,
+          status.component.fill(),
           status.component.file_info(),
         },
         {
           status.component.mode({ mode_text = { padding = { left = 1, right = 1 } } }),
-          status.component.git_branch(),
-          status.component.file_info({
-            filename = { modify = ":p:." },
-          }),
-          status.component.git_diff(),
+          -- status.component.file_info({
+          --   filename = { modify = ":~:." }
+          -- }),
           status.component.diagnostics(),
+          status.component.git_diff(),
           status.component.fill(),
           status.component.fill(),
           -- status.component.lsp(),
+          status.component.git_branch(),
           status.component.treesitter(),
           -- status.component.nav(),
           status.component.mode({ surround = { separator = "right" } }),

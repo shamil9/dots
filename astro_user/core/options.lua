@@ -11,7 +11,6 @@
 -- end,
 return {
   opt = {
-    -- set to true or false etc.
     relativenumber = true, -- sets vim.opt.relativenumber
     number = true, -- sets vim.opt.number
     spell = false, -- sets vim.opt.spell
@@ -23,6 +22,7 @@ return {
     laststatus = 2,
     lazyredraw = false,
     guicursor = "",
+    scrolloff = 15,
   },
   g = {
     mapleader = " ", -- sets vim.g.mapleader
