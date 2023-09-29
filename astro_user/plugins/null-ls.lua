@@ -42,17 +42,17 @@ return {
       -- set up null-ls's on_attach function
       -- NOTE: You can remove this on attach function to disable format on save
       on_attach = function(client, bufnr)
-        -- local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-        -- if client.supports_method("textDocument/formatting") then
-        --   vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-        --   vim.api.nvim_create_autocmd("BufWritePre", {
-        --     callback = function()
-        --       -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
-        --       -- vim.lsp.buf.formatting_sync()
-        --       vim.lsp.buf.format()
-        --     end,
-        --   })
-        -- end
+        local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+        if client.supports_method("textDocument/formatting") then
+          vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+          vim.api.nvim_create_autocmd("BufWritePre", {
+            callback = function()
+              -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
+              -- vim.lsp.buf.formatting_sync()
+              vim.lsp.buf.format()
+            end,
+          })
+        end
       end,
     }
   end,

@@ -17,7 +17,9 @@ return {
         fallthrough = false,
         hl = { fg = "fg", bg = "bg" },
         {
-          condition = function() return not status.condition.is_active() end,
+          condition = function()
+            return not status.condition.is_active()
+          end,
           status.component.fill(),
           status.component.file_info(),
         },
@@ -32,7 +34,7 @@ return {
           status.component.fill(),
           -- status.component.lsp(),
           status.component.git_branch(),
-          status.component.treesitter(),
+          -- status.component.treesitter(),
           -- status.component.nav(),
           status.component.mode({ surround = { separator = "right" } }),
         },
@@ -54,7 +56,7 @@ return {
           hl = { bg = "tabline_bg" },
         },
         status.heirline.make_buflist(status.component.tabline_file_info()), -- component for each buffer tab
-        status.component.fill({ hl = { bg = "tabline_bg" } }), -- fill the rest of the tabline with background color
+        status.component.fill({ hl = { bg = "tabline_bg" } }),              -- fill the rest of the tabline with background color
         {
           -- tab list
           condition = function()
@@ -69,7 +71,10 @@ return {
           }),
           {
             -- close button for current tab
-            provider = status.provider.close_button({ kind = "TabClose", padding = { left = 1, right = 1 } }),
+            provider = status.provider.close_button({
+              kind = "TabClose",
+              padding = { left = 1, right = 1 },
+            }),
             hl = status.hl.get_attributes("tab_close", true),
             on_click = {
               callback = function()
