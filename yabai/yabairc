@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 set -x
 
 # ====== Variables =============================
@@ -23,43 +22,49 @@ color["preselect"]="0xE02d74da"
 
 # ===== Loading Scripting Additions ============
 
-
 sudo yabai --load-sa
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 
 # ===== Tiling setting =========================
 
-yabai -m config layout                      bsp
+yabai -m config layout bsp
 
-yabai -m config top_padding                 "${gaps["top"]}" 
-yabai -m config bottom_padding              "${gaps["bottom"]}"
-yabai -m config left_padding                "${gaps["left"]}"
-yabai -m config right_padding               "${gaps["right"]}"
-yabai -m config window_gap                  "${gaps["inner"]}"
+yabai -m config top_padding "${gaps["top"]}"
+yabai -m config bottom_padding "${gaps["bottom"]}"
+yabai -m config left_padding "${gaps["left"]}"
+yabai -m config right_padding "${gaps["right"]}"
+yabai -m config window_gap "${gaps["inner"]}"
 
-yabai -m config mouse_follows_focus         off
-yabai -m config focus_follows_mouse         off
+yabai -m config mouse_follows_focus off
+yabai -m config focus_follows_mouse off
 
-yabai -m config window_topmost              off
+yabai -m config window_topmost off
 
-yabai -m config window_opacity              off
-yabai -m config window_shadow               on # float
+yabai -m config window_opacity off
+yabai -m config window_shadow on # float
 
-yabai -m config window_border               off
-yabai -m config window_border_width         1
-yabai -m config active_window_border_color  "${color["focused"]}"
-yabai -m config normal_window_border_color  "${color["normal"]}"
-yabai -m config insert_feedback_color       "${color["preselect"]}"
+yabai -m \
+	window_animation_duration 0.5 \
+	window_animation_frame_rate 120 \
+	window_opacity_duration 0.0 \
+	insert_feedback_color 0xffd75f5f \
+	active_window_border_color 0xff775759 \
+	normal_window_border_color 0xff555555 \
+	window_border_width 4 \
+	window_border_radius 12 \
+	window_border_blur off \
+	window_border_hidpi on \
+	window_border on
 
-yabai -m config active_window_opacity       1.0
-yabai -m config normal_window_opacity       0.95
-yabai -m config split_ratio                 0.50
+yabai -m config active_window_opacity 1.0
+yabai -m config normal_window_opacity 0.95
+yabai -m config split_ratio 0.50
 
-yabai -m config auto_balance                on
+yabai -m config auto_balance on
 
-yabai -m config mouse_modifier              fn
-yabai -m config mouse_action1               move
-yabai -m config mouse_action2               resize
+yabai -m config mouse_modifier fn
+yabai -m config mouse_action1 move
+yabai -m config mouse_action2 resize
 
 # ===== Rules ==================================
 
@@ -73,23 +78,26 @@ yabai -m rule --add app=iTerm2 opacity=1.0 manage=off border=off
 yabai -m rule --add app="^Safari$" manage=off grid=30:4:1:1:2:28
 yabai -m rule --add app="^Slack$" manage=off grid=30:4:1:1:2:28
 
+yabai -m rule --add app="^${applications}$" manage=on layer=below
+yabai -m config window_topmost off
+
 # ===== Signals ================================
 # <rows>:<cols>:<start-x>:<start-y>:<width>:<height>
 yabai -m signal --add event=application_activated \
-                      app=ForkLift \
-                      action="yabai -m rule --add app=ForkLift manage=off border=off grid=30:6:1:1:4:28"
+	app=ForkLift \
+	action="yabai -m rule --add app=ForkLift manage=off border=off grid=30:6:1:1:4:28"
 yabai -m signal --add event=application_deactivated \
-                      app=ForkLift \
-                      action="osascript -e 'tell application \"System Events\" to set visible of process \"ForkLift\" to false'"
+	app=ForkLift \
+	action="osascript -e 'tell application \"System Events\" to set visible of process \"ForkLift\" to false'"
 yabai -m signal --add event=application_activated \
-                      app="^Safari$" \
-                      action="yabai -m rule --add app=\"^Safari$\" manage=off border=off grid=30:4:1:1:2:28"
+	app="^Safari$" \
+	action="yabai -m rule --add app=\"^Safari$\" manage=off border=off grid=30:4:1:1:2:28"
 yabai -m signal --add event=application_deactivated \
-                      app="^Safari$" \
-                      action="osascript -e 'tell application \"System Events\" to set visible of process \"Safari\" to false'"
+	app="^Safari$" \
+	action="osascript -e 'tell application \"System Events\" to set visible of process \"Safari\" to false'"
 yabai -m signal --add event=application_activated \
-                      app="^Slack$" \
-                      action="yabai -m rule --add app=\"^Slack$\" manage=off border=off grid=30:4:1:1:2:26"
+	app="^Slack$" \
+	action="yabai -m rule --add app=\"^Slack$\" manage=off border=off grid=30:4:1:1:2:26"
 
 set +x
 printf "yabai: configuration loaded...\\n"
