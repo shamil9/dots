@@ -6,6 +6,7 @@ return {
   config = function()
     require("fzf-lua").setup({
       -- "fzf-native",
+      file_ignore_patterns = { "/node_modules/" },
       files = {
         multiprocess = true,
       },
@@ -20,7 +21,7 @@ return {
           cmd = "bat",
           args = "--style=numbers,changes --color always",
           theme = "Catppuccin-mocha", -- bat preview theme (bat --list-themes)
-          config = nil, -- nil uses $BAT_CONFIG_PATH
+          config = nil,               -- nil uses $BAT_CONFIG_PATH
         },
       },
       winopts = {
