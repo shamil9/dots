@@ -1,10 +1,10 @@
 return {
-  { "mfussenegger/nvim-dap", enabled = false },
-  { "rcarriga/nvim-dap-ui", enabled = false },
-  { "jay-babu/mason-nvim-dap.nvim", enabled = false },
+  { "mfussenegger/nvim-dap",               enabled = false },
+  { "rcarriga/nvim-dap-ui",                enabled = false },
+  { "jay-babu/mason-nvim-dap.nvim",        enabled = false },
   { "lukas-reineke/indent-blankline.nvim", enabled = false },
-  { "stevearc/aerial.nvim", enabled = false },
-  { "goolord/alpha-nvim", enabled = false },
+  { "stevearc/aerial.nvim",                enabled = false },
+  { "goolord/alpha-nvim",                  enabled = false },
 
   ---
   -- {
@@ -28,6 +28,13 @@ return {
   --   end,
   -- },
   {
+    "gbprod/cutlass.nvim",
+    lazy = false,
+    opts = {
+      cut_key = "x",
+    },
+  },
+  {
     "Pocco81/auto-save.nvim",
     config = function()
       require("auto-save").setup({
@@ -38,9 +45,10 @@ return {
   },
   {
     "echasnovski/mini.surround",
-    -- config = function()
-    --   require("mini.surround").setup({})
-    -- end,
+    lazy = false,
+    config = function()
+      require("mini.surround").setup({})
+    end,
   },
   {
     "rebelot/kanagawa.nvim",
