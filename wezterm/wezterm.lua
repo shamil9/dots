@@ -130,7 +130,7 @@ local function get_process(tab)
 
   return wezterm.format(
     process_icons[process_name]
-    or { { Foreground = { Color = colors.sky } }, { Text = string.format("[%s]", process_name) } }
+      or { { Foreground = { Color = colors.sky } }, { Text = string.format("[%s]", process_name) } }
   )
 end
 
@@ -139,7 +139,7 @@ local function get_current_working_dir(tab)
   local HOME_DIR = string.format("file://%s", os.getenv("HOME"))
 
   return current_dir == HOME_DIR and "  ~"
-      or string.format("  %s", string.gsub(current_dir, "(.*[/\\])(.*)", "%2"))
+    or string.format("  %s", string.gsub(current_dir, "(.*[/\\])(.*)", "%2"))
 end
 
 wezterm.on("format-tab-title", function(tab)
@@ -170,9 +170,13 @@ return {
     kanagawa = require("colors.kanagawa"),
   },
   font = wezterm.font_with_fallback({
+    { family = "SF Mono", italic = false },
     { family = "JetBrains Mono", italic = false },
-    { family = "SF Mono",        italic = false },
-    { family = "MonoLisa",       weight = "Medium", italic = false },
+    {
+      family = "MonoLisa",
+      weight = "Medium",
+      italic = false,
+    },
     "Monaco",
   }),
   font_size = 18.0,

@@ -28,6 +28,12 @@ return {
   --   end,
   -- },
   {
+    "simrat39/rust-tools.nvim",
+    -- ft = "rust",
+    lazy = false,
+  },
+
+  {
     "gbprod/cutlass.nvim",
     lazy = false,
     opts = {
@@ -55,7 +61,7 @@ return {
     config = function()
       require("kanagawa").setup({
         -- theme = "wave", -- Load "wave" theme when 'background' option is not set
-        -- background = { -- map the value of 'background' option to a theme
+        -- background = {  -- map the value of 'background' option to a theme
         --   dark = "dragon", -- try "dragon" !
         --   light = "lotus",
         -- },

@@ -9,6 +9,14 @@ return {
         hl = { fg = "fg", bg = "bg" },
         {
           condition = function()
+            return status.condition.buffer_matches({
+              buftype = { "nofile", "prompt", "help", "quickfix" },
+              filetype = { "^git.*", "fugitive", "neo-tree" },
+            })
+          end,
+        },
+        {
+          condition = function()
             return not status.condition.is_active()
           end,
           status.component.fill(),

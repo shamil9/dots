@@ -14,7 +14,6 @@ alias gp='git push'
 alias gup='git pull --rebase --autostash'
 alias gst='git status -s'
 alias nope='git reset --hard;git clean -df;'
-alias sudo='sudo '
 
 alias ls='eza --icons --grid -a --group-directories-first'
 alias la='eza --icons -a -l --group-directories-first'
@@ -22,7 +21,9 @@ alias la='eza --icons -a -l --group-directories-first'
 alias cat=bat
 alias phpserve='php -S localhost:8000 && open http://localhost:8000'
 alias ping='prettyping --nolegend'
-alias ytdl=yt-dlp -x --audio-format mp3 --audio-quality 0 --embed-thumbnail
+alias ytdl='yt-dlp -x --audio-format mp3 --audio-quality 0 --embed-thumbnail'
+alias sudo='sudo '
+alias ex=exercism
 
 alias t="tmux"
 alias ta="t a -t"
