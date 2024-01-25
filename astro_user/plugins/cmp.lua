@@ -2,6 +2,7 @@ return {
   {
     "L3MON4D3/LuaSnip",
     dependencies = { "rafamadriz/friendly-snippets" },
+    build = "make install_jsregexp",
     -- config = require "plugins.configs.luasnip",
     config = function(plugin, opts)
       require("plugins.configs.luasnip")(plugin, opts) -- include the default astronvim config that calls the setup call
