@@ -1,10 +1,11 @@
+command = "/opt/homebrew/bin/fish"
+
 background-opacity = 0.9
 background-blur-radius = 30
 
 shell-integration = none
 window-theme = light
 # window-decoration = false
-clipboard-write = true
 copy-on-select = true
 
 # font-family = SF Mono
@@ -23,7 +24,7 @@ font-feature = ss07
 font-feature = ss08
 font-variation = wght=350
 
-adjust-cell-height = 7
+adjust-cell-height = 10
 #adjust-font-baseline = 2
 adjust-underline-position = 10
 
@@ -33,38 +34,5 @@ foreground = #C0CAF5
 selection-background = #F5E0DC
 selection-foreground = #1E1E2E
 
-# Cattpuccin-Mocha
-cursor-color = #F5E0DC
-cursor-text = #1E1E2E
+theme = catppuccin-mocha
 
-# Black
-palette = 0=#545C7E
-palette = 8=#545C7E
-
-# Red
-palette = 1=#B2555B
-palette = 9=#B2555B
-
-# Green
-palette = 2=#A6E3A1
-palette = 10=#A6E3A1
-
-# Yellow
-palette = 3=#FF9E64
-palette = 11=#E0AF68
-
-# Blue
-palette = 4=#6A92D7
-palette = 12=#6A92D7
-
-# Magenta
-palette = 5=#BB9AF7
-palette = 13=#BB9AF7
-
-# Cyan
-palette = 6=#7CCDFD
-palette = 14=#7CCDFD
-
-# White
-palette = 7=#C0CAF5
-palette = 15=#C0CAF5
