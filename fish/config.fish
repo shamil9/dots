@@ -1,6 +1,8 @@
 if status is-interactive
+    set -gx ATUIN_NOBIND "true"
     # Commands to run in interactive sessions can go here
-    atuin init fish | source
+    atuin init fish --disable-up-arrow | source
+    bind \cr _atuin_search
 end
 
 # Catpuccin Mocha

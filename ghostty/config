@@ -5,7 +5,7 @@ background-blur-radius = 30
 
 shell-integration = none
 window-theme = light
-# window-decoration = false
+window-decoration = false
 copy-on-select = true
 
 # font-family = SF Mono

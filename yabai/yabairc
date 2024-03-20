@@ -71,8 +71,8 @@ yabai -m rule --add app=IINA manage=off
 yabai -m rule --add app=Steam manage=off
 yabai -m rule --add app="Looking Glass" manage=off
 yabai -m rule --add app=iTerm2 opacity=1.0 manage=off
-yabai -m rule --add app="^Safari$" manage=off grid=30:4:1:1:2:28
-yabai -m rule --add app="^Slack$" manage=off grid=30:4:1:1:2:28
+# yabai -m rule --add app="^Safari$" manage=off grid=30:4:1:1:2:28
+# yabai -m rule --add app="^Slack$" manage=off grid=30:4:1:1:2:28
 
 # ===== Signals ================================
 # <rows>:<cols>:<start-x>:<start-y>:<width>:<height>
@@ -82,12 +82,19 @@ yabai -m rule --add app="^Slack$" manage=off grid=30:4:1:1:2:28
 # yabai -m signal --add event=application_deactivated \
 # 	app=ForkLift \
 # 	action="osascript -e 'tell application \"System Events\" to set visible of process \"ForkLift\" to false'"
-# yabai -m signal --add event=application_activated \
-# 	app="^Safari$" \
-# 	action="yabai -m rule --add app=\"^Safari$\" manage=off border=off grid=30:4:1:1:2:28"
-# yabai -m signal --add event=application_front_switched \
-# 	app="^Safari$" \
-# 	action="osascript -e 'tell application \"System Events\" to set visible of process \"Safari\" to false'"
+yabai -m signal --add event=application_activated \
+	app="^Safari$" \
+	action="yabai -m rule --add --one-shot app=\"^Safari$\" manage=off grid=30:4:1:1:2:28"
+yabai -m signal --add event=application_deactivated \
+	app="^Safari$" \
+	action="osascript -e 'tell application \"System Events\" to set visible of process \"Safari\" to false'"
+
+yabai -m signal --add event=application_activated \
+	app="^Slack$" \
+	action="yabai -m rule --add --one-shot app=\"^Slack$\" manage=off grid=30:4:1:1:2:28"
+yabai -m signal --add event=application_deactivated \
+	app="^Slack$" \
+	action="osascript -e 'tell application \"System Events\" to set visible of process \"Slack\" to false'"
 
 set +x
 printf "yabai: configuration loaded...\\n"
