@@ -40,6 +40,6 @@ return {
     set('n', '<leader>fw', ":lua require('fzf-lua').live_grep({ continue_last_search = true })<cr>")
     set('n', 'gd', ":FzfLua lsp_definitions <cr>")
     set('n', 'gr', ":FzfLua lsp_references <cr>")
-    set('n', '<leader>la', ":FzfLua lsp_code_actions <cr>")
+    set('n', '<leader>ls', ":FzfLua lsp_document_symbols <cr>")
   end,
 }
