@@ -3,5 +3,6 @@ return {
 	require('plugins.nvim-tree'),
 	require('plugins.gitsigns'),
 	require('plugins.mini'),
-	require('plugins.treesitter')
+	require('plugins.treesitter'),
+	require('plugins.fzf-lua')
 }
