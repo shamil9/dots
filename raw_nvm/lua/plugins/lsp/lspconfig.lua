@@ -11,7 +11,14 @@ return {
 		local lspconfig = require('lspconfig')
 
 		lspconfig.tsserver.setup({})
-		lspconfig.vuels.setup({})
+		lspconfig.volar.setup({
+			filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' },
+			init_options = {
+				vue = {
+					hybridMode = false
+				},
+			}
+		})
 		lspconfig.cssls.setup({})
 	end
 }
