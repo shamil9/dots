@@ -41,5 +41,6 @@ return {
     set('n', 'gd', ":FzfLua lsp_definitions <cr>")
     set('n', 'gr', ":FzfLua lsp_references <cr>")
     set('n', '<leader>ls', ":FzfLua lsp_document_symbols <cr>")
+    set('n', '<leader>la', ":FzfLua lsp_code_actions <cr>")
   end,
 }
