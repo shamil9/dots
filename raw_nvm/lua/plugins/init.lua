@@ -5,5 +5,6 @@ return {
 	require('plugins.mini'),
 	require('plugins.treesitter'),
 	require('plugins.lsp'),
-	require('plugins.fzf-lua')
+	require('plugins.fzf-lua'),
+	require('plugins.cmp')
 }

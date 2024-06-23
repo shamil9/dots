@@ -1,0 +1,17 @@
+{
+  "Print to console": {
+    "prefix": "clg",
+    "body": ["console.log($1)"],
+    "description": "Log output to console"
+  },
+  "Eslint disable line": {
+    "prefix": "esdisableline",
+    "body": ["// eslint-disable-next-line"],
+    "description": "Eslint disable line"
+  },
+  "Eslint disable": {
+    "prefix": "esdisable",
+    "body": ["/* eslint-disable */"],
+    "description": "Eslint disable"
+  }
+}
