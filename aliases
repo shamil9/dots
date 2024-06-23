@@ -25,6 +25,8 @@ alias ytdl='yt-dlp -x --audio-format mp3 --audio-quality 0 --embed-thumbnail'
 alias sudo='sudo '
 alias ex=exercism
 alias ytm='mpv --no-video'
+alias brewit='brew update && brew upgrade && brew cleanup'
+alias j='z '
 
 alias t="tmux"
 alias ta="t a -t"
