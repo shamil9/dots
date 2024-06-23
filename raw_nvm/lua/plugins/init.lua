@@ -6,5 +6,6 @@ return {
 	require('plugins.treesitter'),
 	require('plugins.lsp'),
 	require('plugins.fzf-lua'),
-	require('plugins.cmp')
+	require('plugins.cmp'),
+	require('plugins.toggleterm'),
 }
