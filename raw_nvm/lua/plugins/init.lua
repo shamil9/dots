@@ -8,4 +8,5 @@ return {
 	require('plugins.fzf-lua'),
 	require('plugins.cmp'),
 	require('plugins.toggleterm'),
+	require('plugins.bufferline'),
 }
