@@ -1,4 +1,5 @@
 return {
+	{ "nvim-lua/plenary.nvim" },
 	require('plugins.colorscheme'),
 	require('plugins.nvim-tree'),
 	require('plugins.gitsigns'),
@@ -9,4 +10,5 @@ return {
 	require('plugins.cmp'),
 	require('plugins.toggleterm'),
 	require('plugins.bufferline'),
+	require('plugins.autosession'),
 }
