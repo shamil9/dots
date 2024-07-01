@@ -11,4 +11,5 @@ return {
 	require('plugins.toggleterm'),
 	require('plugins.bufferline'),
 	require('plugins.autosession'),
+	require('plugins.tiny-inline-diagnostic'),
 }
