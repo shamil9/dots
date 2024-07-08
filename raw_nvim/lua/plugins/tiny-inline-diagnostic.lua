@@ -5,14 +5,17 @@ return {
 		vim.diagnostic.config({ virtual_text = false })
 		require('tiny-inline-diagnostic').setup({
 			signs = {
-				left = "",
-				right = "",
-				diag = "",
+				left = " ",
+				right = " ",
+				diag = " ",
 				arrow = "    ",
 				up_arrow = "    ",
 				vertical = " │",
 				vertical_end = " └"
-		},
+			},
+			options = {
+				overflow = false,
+			}
 		})
 	end
 }

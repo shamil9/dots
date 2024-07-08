@@ -16,6 +16,13 @@ opt.termguicolors = true
 opt.signcolumn = 'yes:1'
 opt.cmdheight = 0
 opt.shortmess:append('I')
+opt.mouse = 'a'
+opt.clipboard = 'unnamedplus'
+opt.swapfile = false
+opt.completeopt = 'menuone,noinsert,noselect'
 
 local g = vim.g
 g.mapleader = " "
+
+vim.api.nvim_set_option("clipboard", "unnamed")
+vim.bo.commentstring = '//%s'

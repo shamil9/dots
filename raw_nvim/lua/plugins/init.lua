@@ -12,4 +12,6 @@ return {
 	require('plugins.bufferline'),
 	require('plugins.autosession'),
 	require('plugins.tiny-inline-diagnostic'),
+	require('plugins.cutclass'),
+	require('plugins.comment')
 }
