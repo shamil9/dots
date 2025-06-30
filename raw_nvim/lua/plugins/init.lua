@@ -13,5 +13,7 @@ return {
 	require('plugins.autosession'),
 	require('plugins.tiny-inline-diagnostic'),
 	require('plugins.cutclass'),
-	require('plugins.comment')
+	require('plugins.comment'),
+	require('plugins.nvim-surround'),
+	require('plugins.nvim-ufo'),
 }

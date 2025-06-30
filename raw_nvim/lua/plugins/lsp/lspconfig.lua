@@ -30,7 +30,7 @@ return {
 			end
 		end
 
-		lspconfig.tsserver.setup({})
+		lspconfig.ts_ls.setup({})
 		lspconfig.volar.setup({
 			filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' },
 			init_options = {

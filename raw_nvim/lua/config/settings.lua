@@ -20,6 +20,13 @@ opt.mouse = 'a'
 opt.clipboard = 'unnamedplus'
 opt.swapfile = false
 opt.completeopt = 'menuone,noinsert,noselect'
+opt.foldcolumn = "0"
+opt.foldtext = ""
+opt.foldlevel = 99
+opt.foldlevelstart = 99
+opt.smartindent = true
+vim.o.foldenable = true
+
 
 local g = vim.g
 g.mapleader = " "

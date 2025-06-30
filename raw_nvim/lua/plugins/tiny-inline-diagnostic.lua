@@ -14,7 +14,10 @@ return {
 				vertical_end = " └"
 			},
 			options = {
-				overflow = false,
+				overflow = {
+					mode = "none",
+					position = "overlay",
+				},
 			}
 		})
 	end

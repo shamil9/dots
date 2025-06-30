@@ -8,3 +8,11 @@
 	tool = vscode
 [difftool "vscode"]
 	cmd = code --wait --diff $LOCAL $REMOTE
+[fetch]
+	prune = true
+[filter "gitignore"]
+	clean = "sed '/gitignore$/'d"
+;[filter "gitignore-block"]
+;	clean = "awk '/-start/,/-end/'d"
+[maintenance]
+	repo = /Users/shamil/Projects/pairi-daiza/website-v1

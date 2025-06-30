@@ -10,7 +10,7 @@ return {
 	},
 	config = function()
 		require("mason-lspconfig").setup({
-			ensure_installed = { "tsserver", "volar", "cssls" },
+			ensure_installed = { "ts_ls", "volar", "cssls" },
 		})
 	end
 }

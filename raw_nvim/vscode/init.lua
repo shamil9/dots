@@ -14,15 +14,38 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+vim.api.nvim_create_autocmd({"CursorHold"}, {
+  pattern = {"*"},
+  command = "silent! mode",
+})
+
 local vscode = require('vscode')
 
 vim.keymap.set("", "<Space>", "<Nop>")
 vim.g.mapleader = " "
+vim.opt.smartindent = true
 
 vim.keymap.set({ "n", "x", "i" }, "<C-d>", function()
   vscode.with_insert(function()
     vscode.action("editor.action.addSelectionToNextFindMatch")
   end)
+end)
+
+vim.keymap.set({ "n", "x" }, "<leader>tc", function()
+	vscode.action("workbench.action.files.save")
+  vscode.action("testing.runAtCursor")
+end)
+
+vim.keymap.set({ "n", "x" }, "za", function()
+  vscode.action("editor.toggleFold")
+end)
+
+vim.keymap.set({ "n", "x" }, "gi", function()
+  vscode.action("editor.action.openLink")
+end)
+
+vim.keymap.set({ "n", "x" }, "gd", function()
+  vscode.action("editor.action.revealDefinition")
 end)
 
 vim.keymap.set({ "n", "x" }, "gr", function()
@@ -37,8 +60,8 @@ vim.keymap.set({ "n", "x" }, "<leader>ls", function()
   vscode.action("workbench.action.gotoSymbol")
 end)
 
-vim.keymap.set({ "n", "x" }, "<leader>tg", function()
-  vscode.action("workbench.action.terminal.toggleTerminal")
+vim.keymap.set({ "n", "x", "i" }, "<C-g>g", function()
+  vscode.action("workbench.view.scm")
 end)
 
 vim.keymap.set({ "n", "x" }, "<leader>fw", function()
